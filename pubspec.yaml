@@ -13,6 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^2.0.16
+  flutter_staggered_animations: ^1.1.1
   
 
   cupertino_icons: ^1.0.8

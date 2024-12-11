@@ -3,6 +3,7 @@ import 'package:book_nexsus/widgets/custom_blur_box.dart';
 import 'package:book_nexsus/widgets/custom_elevated_button.dart';
 import 'package:book_nexsus/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
@@ -120,23 +121,36 @@ class _BackToLoginButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {},
-      child: Row(
-        children: [
-          SvgPicture.asset(
-            'assets/images/icon_arrow_left.svg',
-            height: 24,
-            width: 24,
+      child: AnimationLimiter(
+        child: Row(
+          children: AnimationConfiguration.toStaggeredList(
+            childAnimationBuilder: (widget) {
+              return SlideAnimation(
+                horizontalOffset: -150,
+                duration: const Duration(milliseconds: 1500),
+                child: FadeInAnimation(
+                  child: widget,
+                ),
+              );
+            },
+            children: [
+              SvgPicture.asset(
+                'assets/images/icon_arrow_left.svg',
+                height: 24,
+                width: 24,
+              ),
+              const SizedBox(width: 8),
+              const Text(
+                'Back to login',
+                style: TextStyle(
+                  fontFamily: 'NM',
+                  fontSize: 16,
+                  color: AppColors.white,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(width: 8),
-          const Text(
-            'Back to login',
-            style: TextStyle(
-              fontFamily: 'NM',
-              fontSize: 16,
-              color: AppColors.white,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
