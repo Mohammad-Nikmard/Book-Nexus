@@ -18,7 +18,6 @@ class CustomBlurBox extends StatelessWidget {
             sigmaY: 10.0,
           ),
           child: Container(
-            height: 499,
             width: double.infinity,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(
