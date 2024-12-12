@@ -6,21 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 
-class PasswordVerificationScreen extends StatefulWidget {
+class PasswordVerificationScreen extends StatelessWidget {
   const PasswordVerificationScreen({super.key});
 
   @override
-  State<PasswordVerificationScreen> createState() =>
-      _PasswordVerificationScreenState();
-}
-
-class _PasswordVerificationScreenState
-    extends State<PasswordVerificationScreen> {
-  final TextEditingController emailController = TextEditingController();
-  @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: const BoxDecoration(
+    return const DecoratedBox(
+      decoration: BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.cover,
           image: AssetImage(
@@ -33,19 +25,19 @@ class _PasswordVerificationScreenState
         body: SafeArea(
           child: Stack(
             children: [
-              const Positioned(
+              Positioned(
                 top: 16,
                 left: 16,
                 child: _BackToLoginButton(),
               ),
               Center(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: EdgeInsets.symmetric(horizontal: 16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.only(left: 16),
                         child: Text(
                           'Verify Code',
@@ -56,64 +48,9 @@ class _PasswordVerificationScreenState
                           ),
                         ),
                       ),
-                      const SizedBox(height: 16),
+                      SizedBox(height: 16),
                       CustomBlurBox(
-                        child: Column(
-                          children: [
-                            const Text(
-                              "An authentication code has been sent to your email",
-                              style: TextStyle(
-                                fontFamily: 'NR',
-                                fontSize: 14,
-                                color: AppColors.white,
-                              ),
-                              textAlign: TextAlign.start,
-                            ),
-                            const SizedBox(height: 24),
-                            CustomTextField(
-                              controller: emailController,
-                              hintText: 'Email',
-                            ),
-                            const SizedBox(height: 16),
-                            CustomElevatedButton(
-                              onPressed: () {},
-                              text: 'Verify',
-                            ),
-                            const SizedBox(height: 24),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                RichText(
-                                  text: const TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: "Didn't receive a code? ",
-                                        style: TextStyle(
-                                          fontFamily: 'NR',
-                                          fontSize: 16,
-                                          color: AppColors.white,
-                                        ),
-                                      ),
-                                      TextSpan(
-                                        text: 'Resend ',
-                                        style: TextStyle(
-                                          fontFamily: 'NB',
-                                          fontSize: 16,
-                                          color: AppColors.greenAccent,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SvgPicture.asset(
-                                  'assets/images/icon_reload.svg',
-                                  height: 14,
-                                  width: 14,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
+                        child: _BlurBoxContent(),
                       ),
                     ],
                   ),
@@ -165,6 +102,89 @@ class _BackToLoginButton extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _BlurBoxContent extends StatefulWidget {
+  const _BlurBoxContent();
+
+  @override
+  State<_BlurBoxContent> createState() => _BlurBoxContentState();
+}
+
+class _BlurBoxContentState extends State<_BlurBoxContent> {
+  late TextEditingController emailController;
+
+  @override
+  void initState() {
+    emailController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const Text(
+          "An authentication code has been sent to your email",
+          style: TextStyle(
+            fontFamily: 'NR',
+            fontSize: 14,
+            color: AppColors.white,
+          ),
+          textAlign: TextAlign.start,
+        ),
+        const SizedBox(height: 24),
+        CustomTextField(
+          controller: emailController,
+          hintText: 'Email',
+        ),
+        const SizedBox(height: 16),
+        CustomElevatedButton(
+          onPressed: () {},
+          text: 'Verify',
+        ),
+        const SizedBox(height: 24),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            RichText(
+              text: const TextSpan(
+                children: [
+                  TextSpan(
+                    text: "Didn't receive a code? ",
+                    style: TextStyle(
+                      fontFamily: 'NR',
+                      fontSize: 16,
+                      color: AppColors.white,
+                    ),
+                  ),
+                  TextSpan(
+                    text: 'Resend ',
+                    style: TextStyle(
+                      fontFamily: 'NB',
+                      fontSize: 16,
+                      color: AppColors.greenAccent,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SvgPicture.asset(
+              'assets/images/icon_reload.svg',
+              height: 14,
+              width: 14,
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
