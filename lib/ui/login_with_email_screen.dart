@@ -5,14 +5,14 @@ import 'package:book_nexsus/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class LoginWithEmailScreen extends StatefulWidget {
+  const LoginWithEmailScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<LoginWithEmailScreen> createState() => _LoginWithEmailScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginWithEmailScreenState extends State<LoginWithEmailScreen> {
   late TextEditingController emailController;
 
   @override
