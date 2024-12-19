@@ -18,4 +18,6 @@ class AppColors {
   static const Color greyDark = Color(0xff313333);
 
   static const Color black = Colors.black;
+
+  static const Color background = Color(0xff181A1A);
 }
