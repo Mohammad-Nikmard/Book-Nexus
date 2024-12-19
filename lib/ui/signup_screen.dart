@@ -3,6 +3,7 @@ import 'package:book_nexsus/widgets/custom_blur_box.dart';
 import 'package:book_nexsus/widgets/custom_elevated_button.dart';
 import 'package:book_nexsus/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -54,14 +55,31 @@ class _SignupScreenState extends State<SignupScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Padding(
-                  padding: EdgeInsets.only(left: 16, bottom: 16),
-                  child: Text(
-                    'Sign up',
-                    style: TextStyle(
-                      fontFamily: 'NB',
-                      fontSize: 32,
-                      color: AppColors.white,
+                Padding(
+                  padding: const EdgeInsets.only(left: 16, bottom: 16),
+                  child: AnimationLimiter(
+                    child: Row(
+                      children: AnimationConfiguration.toStaggeredList(
+                        childAnimationBuilder: (widget) {
+                          return SlideAnimation(
+                            horizontalOffset: -240,
+                            duration: const Duration(milliseconds: 1500),
+                            child: FadeInAnimation(
+                              child: widget,
+                            ),
+                          );
+                        },
+                        children: [
+                          const Text(
+                            'Sign up',
+                            style: TextStyle(
+                              fontFamily: 'NB',
+                              fontSize: 32,
+                              color: AppColors.white,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

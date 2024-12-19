@@ -1,6 +1,7 @@
 import 'package:book_nexsus/constants/constants.dart';
 import 'package:book_nexsus/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 
 class GenrePreferencesScreen extends StatelessWidget {
@@ -17,14 +18,31 @@ class GenrePreferencesScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 24),
-              const Padding(
-                padding: EdgeInsets.only(left: 16),
-                child: Text(
-                  'Select Genres',
-                  style: TextStyle(
-                    fontFamily: 'NB',
-                    fontSize: 32,
-                    color: AppColors.white,
+              Padding(
+                padding: const EdgeInsets.only(left: 16),
+                child: AnimationLimiter(
+                  child: Row(
+                    children: AnimationConfiguration.toStaggeredList(
+                      childAnimationBuilder: (widget) {
+                        return SlideAnimation(
+                          horizontalOffset: -300.0,
+                          duration: const Duration(milliseconds: 1500),
+                          child: FadeInAnimation(
+                            child: widget,
+                          ),
+                        );
+                      },
+                      children: [
+                        const Text(
+                          'Select Genres',
+                          style: TextStyle(
+                            fontFamily: 'NB',
+                            fontSize: 32,
+                            color: AppColors.white,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

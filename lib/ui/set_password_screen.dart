@@ -3,6 +3,7 @@ import 'package:book_nexsus/widgets/custom_blur_box.dart';
 import 'package:book_nexsus/widgets/custom_elevated_button.dart';
 import 'package:book_nexsus/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SetPasswordScreen extends StatelessWidget {
@@ -10,8 +11,8 @@ class SetPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const DecoratedBox(
-      decoration: BoxDecoration(
+    return DecoratedBox(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.cover,
           image: AssetImage(
@@ -22,24 +23,41 @@ class SetPasswordScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 16),
-                child: Text(
-                  'Set Password',
-                  style: TextStyle(
-                    fontFamily: 'NB',
-                    fontSize: 32,
-                    color: AppColors.white,
+                padding: const EdgeInsets.only(left: 16),
+                child: AnimationLimiter(
+                  child: Row(
+                    children: AnimationConfiguration.toStaggeredList(
+                      childAnimationBuilder: (widget) {
+                        return SlideAnimation(
+                          horizontalOffset: -290,
+                          duration: const Duration(milliseconds: 1500),
+                          child: FadeInAnimation(
+                            child: widget,
+                          ),
+                        );
+                      },
+                      children: [
+                        const Text(
+                          'Set Password',
+                          style: TextStyle(
+                            fontFamily: 'NB',
+                            fontSize: 32,
+                            color: AppColors.white,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-              SizedBox(height: 16),
-              CustomBlurBox(
+              const SizedBox(height: 16),
+              const CustomBlurBox(
                 child: _BlurBoxContent(),
               ),
             ],

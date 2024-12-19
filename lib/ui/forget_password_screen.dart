@@ -11,8 +11,8 @@ class ForgetPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const DecoratedBox(
-      decoration: BoxDecoration(
+    return DecoratedBox(
+      decoration: const BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.cover,
           image: AssetImage(
@@ -25,31 +25,48 @@ class ForgetPasswordScreen extends StatelessWidget {
         body: SafeArea(
           child: Stack(
             children: [
-              Positioned(
+              const Positioned(
                 top: 16,
                 left: 16,
                 child: _BackToLoginButton(),
               ),
               Center(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(left: 16),
-                        child: Text(
-                          'Recover Password',
-                          style: TextStyle(
-                            fontFamily: 'NB',
-                            fontSize: 32,
-                            color: AppColors.white,
+                        padding: const EdgeInsets.only(left: 16),
+                        child: AnimationLimiter(
+                          child: Row(
+                            children: AnimationConfiguration.toStaggeredList(
+                              childAnimationBuilder: (widget) {
+                                return SlideAnimation(
+                                  horizontalOffset: -300,
+                                  duration: const Duration(milliseconds: 1500),
+                                  child: FadeInAnimation(
+                                    child: widget,
+                                  ),
+                                );
+                              },
+                              children: [
+                                const Text(
+                                  'Recover Password',
+                                  style: TextStyle(
+                                    fontFamily: 'NB',
+                                    fontSize: 32,
+                                    color: AppColors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                      SizedBox(height: 16),
-                      CustomBlurBox(
+                      const SizedBox(height: 16),
+                      const CustomBlurBox(
                         child: _BlurBoxContent(),
                       ),
                     ],
