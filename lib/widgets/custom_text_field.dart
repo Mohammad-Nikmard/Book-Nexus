@@ -8,11 +8,15 @@ class CustomTextField extends StatelessWidget {
     required this.hintText,
     this.obscureText = false,
     this.suffixIcon,
+    this.fillColor = AppColors.white,
+    this.textColor = AppColors.black,
   });
   final String hintText;
   final TextEditingController controller;
   final bool obscureText;
   final Widget? suffixIcon;
+  final Color fillColor;
+  final Color textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -21,16 +25,16 @@ class CustomTextField extends StatelessWidget {
       width: double.infinity,
       child: TextField(
         obscureText: obscureText,
-        style: const TextStyle(
-          fontFamily: 'NM',
-          fontSize: 14,
-          color: AppColors.black,
+        style: TextStyle(
+          fontFamily: 'NR',
+          fontSize: 16,
+          color: textColor,
         ),
         controller: controller,
         decoration: InputDecoration(
           suffixIcon: suffixIcon,
           filled: true,
-          fillColor: AppColors.white,
+          fillColor: fillColor,
           hintText: hintText,
           hintStyle: const TextStyle(
             fontFamily: 'NR',
@@ -38,11 +42,13 @@ class CustomTextField extends StatelessWidget {
             color: AppColors.greyLight,
           ),
           enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide.none,
             borderRadius: BorderRadius.all(
               Radius.circular(8),
             ),
           ),
           focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide.none,
             borderRadius: BorderRadius.all(
               Radius.circular(8),
             ),
