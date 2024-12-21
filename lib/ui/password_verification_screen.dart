@@ -1,4 +1,5 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/widgets/custom_back_button.dart';
 import 'package:book_nexsus/widgets/custom_blur_box.dart';
 import 'package:book_nexsus/widgets/custom_elevated_button.dart';
 import 'package:book_nexsus/widgets/custom_text_field.dart';
@@ -28,7 +29,9 @@ class PasswordVerificationScreen extends StatelessWidget {
               const Positioned(
                 top: 16,
                 left: 16,
-                child: _BackToLoginButton(),
+                child: CustomBackIcon(
+                  text: 'Back to Log in',
+                ),
               ),
               Center(
                 child: Padding(
@@ -71,48 +74,6 @@ class PasswordVerificationScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _BackToLoginButton extends StatelessWidget {
-  const _BackToLoginButton();
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: AnimationLimiter(
-        child: Row(
-          children: AnimationConfiguration.toStaggeredList(
-            childAnimationBuilder: (widget) {
-              return SlideAnimation(
-                horizontalOffset: -150,
-                duration: const Duration(milliseconds: 1500),
-                child: FadeInAnimation(
-                  child: widget,
-                ),
-              );
-            },
-            children: [
-              SvgPicture.asset(
-                'assets/images/icon_arrow_left.svg',
-                height: 24,
-                width: 24,
-              ),
-              const SizedBox(width: 8),
-              const Text(
-                'Back to login',
-                style: TextStyle(
-                  fontFamily: 'NM',
-                  fontSize: 16,
-                  color: AppColors.white,
                 ),
               ),
             ],
