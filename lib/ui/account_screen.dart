@@ -1,5 +1,6 @@
 import 'package:book_nexsus/constants/constants.dart';
 import 'package:book_nexsus/widgets/custom_back_button.dart';
+import 'package:book_nexsus/widgets/custom_divider_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
@@ -22,25 +23,9 @@ class AccountScreen extends StatelessWidget {
                 text: 'Home',
               ),
               const SizedBox(height: 24),
-              const SizedBox(
-                width: 110,
-                child: Column(
-                  children: [
-                    Text(
-                      'Account',
-                      style: TextStyle(
-                        fontFamily: 'NB',
-                        fontSize: 24,
-                        color: AppColors.white,
-                      ),
-                    ),
-                    Divider(
-                      thickness: 1,
-                      color: AppColors.greenAccent,
-                      height: 4.0,
-                    ),
-                  ],
-                ),
+              const CustomDividerHeader(
+                header: 'Account',
+                boxWidth: 110,
               ),
               const SizedBox(height: 24),
               const Row(
