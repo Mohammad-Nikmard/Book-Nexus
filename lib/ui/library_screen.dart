@@ -3,28 +3,117 @@ import 'package:book_nexsus/widgets/custom_divider_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class LibraryScreen extends StatelessWidget {
+class LibraryScreen extends StatefulWidget {
   const LibraryScreen({super.key});
 
   @override
+  State<LibraryScreen> createState() => _LibraryScreenState();
+}
+
+class _LibraryScreenState extends State<LibraryScreen> {
+  int selectedTagIndex = 0;
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 10),
-              CustomDividerHeader(
-                header: 'My Library',
-                boxWidth: 130,
+        child: CustomScrollView(
+          slivers: [
+            const SliverPadding(
+              padding: EdgeInsets.only(top: 10, bottom: 24, left: 12),
+              sliver: SliverToBoxAdapter(
+                child: Row(
+                  children: [
+                    CustomDividerHeader(
+                      header: 'My Library',
+                      boxWidth: 130,
+                    ),
+                  ],
+                ),
               ),
-              SizedBox(height: 24),
-              _LirbraryTagList(),
-              const SizedBox(height: 24),
-              _InProgressListSection(),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.only(bottom: 32),
+              sliver: SliverToBoxAdapter(
+                child: _LirbraryTagList(
+                  listIndex: (value) {
+                    setState(() {
+                      selectedTagIndex = value;
+                    });
+                  },
+                ),
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: Stack(
+                children: [
+                  _CompletedListSection(),
+                  _CompletedListSection(),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _LibraryPageTag extends StatelessWidget {
+  const _LibraryPageTag({
+    required this.tag,
+    required this.image,
+    required this.isTagTapped,
+  });
+  final String tag;
+  final String image;
+  final bool isTagTapped;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.decelerate,
+      height: 42,
+      width: 145,
+      decoration: BoxDecoration(
+        color: isTagTapped ? AppColors.greenAccent : Colors.transparent,
+        borderRadius: const BorderRadius.all(
+          Radius.circular(20),
+        ),
+        border: Border.all(
+          width: 1,
+          color: AppColors.greyDark,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 24,
+                width: 24,
+                child: Center(
+                  child: SvgPicture.asset(
+                    'assets/images/$image.svg',
+                    colorFilter: ColorFilter.mode(
+                      isTagTapped ? AppColors.greyDark : AppColors.white,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 4),
+              Text(
+                tag,
+                style: TextStyle(
+                  fontFamily: 'NM',
+                  fontSize: 14,
+                  color: isTagTapped ? AppColors.greyDark : AppColors.white,
+                ),
+              ),
             ],
           ),
         ),
@@ -33,76 +122,28 @@ class LibraryScreen extends StatelessWidget {
   }
 }
 
-class _LibraryPageTag extends StatefulWidget {
-  const _LibraryPageTag({
-    required this.tag,
-    required this.image,
+class _LirbraryTagList extends StatefulWidget {
+  const _LirbraryTagList({
+    required this.listIndex,
   });
-  final String tag;
-  final String image;
+  final ValueChanged<int> listIndex;
 
   @override
-  State<_LibraryPageTag> createState() => _LibraryPageTagState();
+  State<_LirbraryTagList> createState() => _LirbraryTagListState();
 }
 
-class _LibraryPageTagState extends State<_LibraryPageTag> {
-  bool onTapped = false;
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          onTapped = !onTapped;
-        });
-      },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.decelerate,
-        height: 42,
-        width: 145,
-        decoration: BoxDecoration(
-          color: onTapped ? AppColors.greenAccent : Colors.transparent,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(20),
-          ),
-          border: Border.all(
-            width: 1,
-            color: AppColors.greyDark,
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  'assets/images/${widget.image}.svg',
-                  colorFilter: ColorFilter.mode(
-                    onTapped ? AppColors.greyDark : AppColors.white,
-                    BlendMode.srcIn,
-                  ),
-                ),
-                const SizedBox(width: 4),
-                Text(
-                  'In Progress',
-                  style: TextStyle(
-                    fontFamily: 'NM',
-                    fontSize: 14,
-                    color: onTapped ? AppColors.greyDark : AppColors.white,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _LirbraryTagList extends StatelessWidget {
-  const _LirbraryTagList();
+class _LirbraryTagListState extends State<_LirbraryTagList> {
+  int selectedIndex = 0;
+  List<String> tagTitle = [
+    'Saved Books',
+    'In Progress',
+    'Completed',
+  ];
+  List<String> iconList = [
+    'icon_bookmark',
+    'icon_headphone',
+    'icon_check',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -110,14 +151,26 @@ class _LirbraryTagList extends StatelessWidget {
       height: 42,
       width: double.infinity,
       child: ListView.builder(
+        padding: EdgeInsets.zero,
         itemCount: 3,
+        shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          return const Padding(
-            padding: EdgeInsets.only(right: 8),
-            child: _LibraryPageTag(
-              tag: 'In Progress',
-              image: 'icon_headphone',
+          return Padding(
+            padding: const EdgeInsets.only(left: 8),
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  selectedIndex = index;
+
+                  widget.listIndex(selectedIndex);
+                });
+              },
+              child: _LibraryPageTag(
+                isTagTapped: selectedIndex == index,
+                tag: tagTitle[index],
+                image: iconList[index],
+              ),
             ),
           );
         },
@@ -131,17 +184,9 @@ class _InProgressListSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height - 230,
-      width: double.infinity,
-      child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisExtent: 405,
-          mainAxisSpacing: 8,
-          crossAxisSpacing: 8,
-        ),
-        itemBuilder: (context, index) {
+    return SliverGrid(
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
           return const _LibraryBookCover(
             image: 'The Good Guy Cover',
             title: 'The good guy',
@@ -152,6 +197,70 @@ class _InProgressListSection extends StatelessWidget {
             bookLength: '8m',
           );
         },
+      ),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisExtent: 415,
+        mainAxisSpacing: 8,
+        crossAxisSpacing: 4,
+      ),
+    );
+  }
+}
+
+class _SavedListSection extends StatelessWidget {
+  const _SavedListSection();
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverGrid(
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          return const _LibraryBookCover(
+            image: 'The Good Guy Cover',
+            title: 'The good guy',
+            author: 'Mark mcallister',
+            subTitle: 'A story about guy who was very good until the end when',
+            isInProgress: false,
+            audioLength: '8m',
+            bookLength: '8m',
+          );
+        },
+      ),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisExtent: 415,
+        mainAxisSpacing: 8,
+        crossAxisSpacing: 4,
+      ),
+    );
+  }
+}
+
+class _CompletedListSection extends StatelessWidget {
+  const _CompletedListSection();
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverGrid(
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          return const _LibraryBookCover(
+            image: 'The Good Guy Cover',
+            title: 'The good guy',
+            author: 'Mark mcallister',
+            subTitle: 'A story about guy who was very good until the end when',
+            isInProgress: false,
+            audioLength: '8m',
+            bookLength: '8m',
+          );
+        },
+      ),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisExtent: 415,
+        mainAxisSpacing: 8,
+        crossAxisSpacing: 4,
       ),
     );
   }
@@ -183,10 +292,15 @@ class _LibraryBookCover extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset(
-            'assets/images/$image.png',
+          SizedBox(
             height: 254,
             width: double.infinity,
+            child: FittedBox(
+              fit: BoxFit.cover,
+              child: Image.asset(
+                'assets/images/$image.png',
+              ),
+            ),
           ),
           const SizedBox(height: 16),
           Column(
