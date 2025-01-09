@@ -7,15 +7,17 @@ class CustomSearchField extends StatelessWidget {
     required this.controller,
     this.prefixIcon,
     this.hintText,
+    required this.height,
   });
   final TextEditingController controller;
   final Widget? prefixIcon;
   final String? hintText;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 52,
+      height: height,
       width: double.infinity,
       child: TextField(
         style: const TextStyle(

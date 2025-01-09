@@ -40,6 +40,7 @@ class _SearchScreenState extends State<SearchScreen> {
               Padding(
                 padding: const EdgeInsets.only(top: 8, bottom: 24),
                 child: CustomSearchField(
+                  height: 52,
                   controller: searchController,
                   prefixIcon: SizedBox(
                     height: 24,
