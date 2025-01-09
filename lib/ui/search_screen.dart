@@ -12,6 +12,9 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   late TextEditingController searchController;
+  int recentSeachListLength = 4;
+
+  final listKey = GlobalKey<AnimatedListState>();
 
   @override
   void initState() {
@@ -75,14 +78,33 @@ class _SearchScreenState extends State<SearchScreen> {
                 height: MediaQuery.of(context).size.height - 150,
                 child: CustomScrollView(
                   slivers: [
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, indx) {
-                          return const _RecentSearchProduct(
+                    SliverAnimatedList(
+                      key: listKey,
+                      itemBuilder: (context, index, animation) {
+                        return FadeTransition(
+                          opacity: animation,
+                          child: _RecentSearchProduct(
                             isAlreadySearched: true,
-                          );
-                        },
-                      ),
+                            onDeleteTapped: () {
+                              setState(() {
+                                recentSeachListLength--;
+                              });
+                              listKey.currentState?.removeItem(
+                                index,
+                                (context, animation) {
+                                  return FadeTransition(
+                                    opacity: animation,
+                                    child: const _RecentSearchProduct(
+                                      isAlreadySearched: true,
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        );
+                      },
+                      initialItemCount: recentSeachListLength,
                     ),
                   ],
                 ),
@@ -98,8 +120,10 @@ class _SearchScreenState extends State<SearchScreen> {
 class _RecentSearchProduct extends StatelessWidget {
   const _RecentSearchProduct({
     required this.isAlreadySearched,
+    this.onDeleteTapped,
   });
   final bool isAlreadySearched;
+  final VoidCallback? onDeleteTapped;
 
   @override
   Widget build(BuildContext context) {
@@ -174,7 +198,9 @@ class _RecentSearchProduct extends StatelessWidget {
           Visibility(
             visible: isAlreadySearched,
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                onDeleteTapped!();
+              },
               child: SvgPicture.asset(
                 'assets/images/icon_delete.svg',
               ),
