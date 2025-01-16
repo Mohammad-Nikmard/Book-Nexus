@@ -1,6 +1,8 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/ui/product_listing_screen.dart';
 import 'package:book_nexsus/widgets/custom_divider_header.dart';
 import 'package:book_nexsus/widgets/custom_search_field.dart';
+import 'package:book_nexsus/widgets/product_explore_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -190,21 +192,33 @@ class _ExploreTopicLists extends StatelessWidget {
                             color: AppColors.white,
                           ),
                         ),
-                        Row(
-                          children: [
-                            const Text(
-                              'show all',
-                              style: TextStyle(
-                                fontFamily: 'NB',
-                                fontSize: 12,
-                                color: AppColors.greenAccent,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProductListingScreen(
+                                  name: topicNames[index],
+                                ),
                               ),
-                            ),
-                            const SizedBox(width: 3),
-                            SvgPicture.asset(
-                              'assets/images/icon_arrow_circle_right.svg',
-                            ),
-                          ],
+                            );
+                          },
+                          child: Row(
+                            children: [
+                              const Text(
+                                'show all',
+                                style: TextStyle(
+                                  fontFamily: 'NB',
+                                  fontSize: 12,
+                                  color: AppColors.greenAccent,
+                                ),
+                              ),
+                              const SizedBox(width: 3),
+                              SvgPicture.asset(
+                                'assets/images/icon_arrow_circle_right.svg',
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -237,90 +251,6 @@ class _ExploreTopicLists extends StatelessWidget {
           );
         },
         childCount: topicNames.length,
-      ),
-    );
-  }
-}
-
-class ProductExploreBox extends StatelessWidget {
-  const ProductExploreBox({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 240,
-      width: 140,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 164,
-            width: double.infinity,
-            child: FittedBox(
-              fit: BoxFit.cover,
-              child: Image.asset(
-                'assets/images/The Good Guy Cover.png',
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
-          const Text(
-            'The good guy',
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontFamily: 'NM',
-              fontSize: 12,
-              color: Colors.white,
-            ),
-          ),
-          const SizedBox(height: 4),
-          const Text(
-            'mark fellani',
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontFamily: 'NR',
-              fontSize: 10,
-              color: Colors.white,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              const SizedBox(width: 3),
-              SvgPicture.asset(
-                'assets/images/icon_headphone.svg',
-                height: 14,
-                width: 14,
-              ),
-              const SizedBox(width: 4),
-              const Text(
-                '5m',
-                style: TextStyle(
-                  fontFamily: 'NR',
-                  fontSize: 10,
-                  color: AppColors.greyLight,
-                ),
-              ),
-              const SizedBox(width: 16),
-              SvgPicture.asset(
-                'assets/images/icon_glasses.svg',
-                height: 14,
-                width: 14,
-              ),
-              const SizedBox(width: 4),
-              const Text(
-                '5m',
-                style: TextStyle(
-                  fontFamily: 'NR',
-                  fontSize: 10,
-                  color: AppColors.greyLight,
-                ),
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }
