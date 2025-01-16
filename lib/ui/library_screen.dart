@@ -4,19 +4,25 @@ import 'package:book_nexsus/widgets/search_product_cover.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class LibraryScreen extends StatelessWidget {
+class LibraryScreen extends StatefulWidget {
   const LibraryScreen({super.key});
 
   @override
+  State<LibraryScreen> createState() => _LibraryScreenState();
+}
+
+class _LibraryScreenState extends State<LibraryScreen> {
+  int selectedIndex = 0;
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: CustomScrollView(
             slivers: [
-              SliverPadding(
+              const SliverPadding(
                 padding: EdgeInsets.only(top: 10, bottom: 24),
                 sliver: SliverToBoxAdapter(
                   child: Row(
@@ -30,12 +36,28 @@ class LibraryScreen extends StatelessWidget {
                 ),
               ),
               SliverPadding(
-                padding: EdgeInsets.only(bottom: 24),
+                padding: const EdgeInsets.only(bottom: 24),
                 sliver: SliverToBoxAdapter(
-                  child: _LirbraryTagList(),
+                  child: _LirbraryTagList(
+                    selectedIndex: (value) {
+                      setState(() {
+                        selectedIndex = value;
+                      });
+                    },
+                  ),
                 ),
               ),
-              _CompletedListSection(),
+              Builder(
+                builder: (context) {
+                  if (selectedIndex == 0) {
+                    return const _SavedBooksSection();
+                  } else if (selectedIndex == 1) {
+                    return const _InProgressListSection();
+                  } else {
+                    return const _CompletedListSection();
+                  }
+                },
+              ),
             ],
           ),
         ),
@@ -107,7 +129,8 @@ class _LibraryPageTag extends StatelessWidget {
 }
 
 class _LirbraryTagList extends StatefulWidget {
-  const _LirbraryTagList();
+  const _LirbraryTagList({required this.selectedIndex});
+  final ValueChanged<int> selectedIndex;
 
   @override
   State<_LirbraryTagList> createState() => _LirbraryTagListState();
@@ -140,9 +163,9 @@ class _LirbraryTagListState extends State<_LirbraryTagList> {
             padding: const EdgeInsets.only(left: 8),
             child: GestureDetector(
               onTap: () {
-                setState(() {
-                  selectedIndex = index;
-                });
+                selectedIndex = index;
+
+                widget.selectedIndex(index);
               },
               child: _LibraryPageTag(
                 isTagTapped: selectedIndex == index,
@@ -176,6 +199,66 @@ class _CompletedListSection extends StatelessWidget {
           );
         },
         childCount: 10,
+      ),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisExtent: 415,
+        mainAxisSpacing: 8,
+        crossAxisSpacing: 4,
+      ),
+    );
+  }
+}
+
+class _InProgressListSection extends StatelessWidget {
+  const _InProgressListSection();
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverGrid(
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          return const SearchProductCover(
+            image: 'The Good Guy Cover',
+            title: 'The good guy',
+            author: 'Mark mcallister',
+            subTitle: 'A story about guy who was very good until the end when',
+            isInProgress: false,
+            audioLength: '8m',
+            bookLength: '8m',
+          );
+        },
+        childCount: 5,
+      ),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisExtent: 415,
+        mainAxisSpacing: 8,
+        crossAxisSpacing: 4,
+      ),
+    );
+  }
+}
+
+class _SavedBooksSection extends StatelessWidget {
+  const _SavedBooksSection();
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverGrid(
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          return const SearchProductCover(
+            image: 'The Good Guy Cover',
+            title: 'The good guy',
+            author: 'Mark mcallister',
+            subTitle: 'A story about guy who was very good until the end when',
+            isInProgress: false,
+            audioLength: '8m',
+            bookLength: '8m',
+          );
+        },
+        childCount: 3,
       ),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
