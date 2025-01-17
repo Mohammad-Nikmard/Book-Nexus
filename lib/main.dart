@@ -1,4 +1,4 @@
-import 'package:book_nexsus/ui/library_screen.dart';
+import 'package:book_nexsus/ui/product_detail_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LibraryScreen(),
+      home: ProductDetailScreen(),
     );
   }
 }

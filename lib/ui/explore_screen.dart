@@ -1,6 +1,7 @@
 import 'package:book_nexsus/constants/constants.dart';
 import 'package:book_nexsus/ui/product_listing_screen.dart';
 import 'package:book_nexsus/widgets/custom_divider_header.dart';
+import 'package:book_nexsus/widgets/custom_product_tag_list.dart';
 import 'package:book_nexsus/widgets/custom_search_field.dart';
 import 'package:book_nexsus/widgets/product_explore_box.dart';
 import 'package:flutter/material.dart';
@@ -119,42 +120,10 @@ class _ExploreTopicsSection extends StatelessWidget {
               color: AppColors.white,
             ),
           ),
-          const SizedBox(height: 16),
-          Wrap(
-            alignment: WrapAlignment.start,
-            spacing: 8,
-            runSpacing: 13,
-            children: List.generate(
-              topicNames.length,
-              (index) => ClipRRect(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(8),
-                ),
-                child: SizedBox(
-                  height: 30,
-                  child: ColoredBox(
-                    color: AppColors.greyDark,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            topicNames[index],
-                            style: const TextStyle(
-                              fontFamily: 'NR',
-                              fontSize: 12,
-                              color: AppColors.white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+          CustomProductTagList(
+            topicNames: topicNames,
           ),
+          const SizedBox(height: 16),
         ],
       ),
     );
