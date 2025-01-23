@@ -1,6 +1,7 @@
 import 'dart:ui';
-
+import 'package:animations/animations.dart';
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/ui/book_read_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -40,7 +41,12 @@ class AudioPlayerScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 16, bottom: 100),
+                          padding: EdgeInsets.only(
+                            top: 16,
+                            bottom: MediaQuery.of(context).size.height < 700
+                                ? 60
+                                : 100,
+                          ),
                           child: SafeArea(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -56,7 +62,11 @@ class AudioPlayerScreen extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 100),
+                          padding: EdgeInsets.only(
+                            bottom: MediaQuery.of(context).size.height < 700
+                                ? 60
+                                : 100,
+                          ),
                           child: SizedBox(
                             height: 249,
                             width: 173,
@@ -177,82 +187,18 @@ class AudioPlayerScreen extends StatelessWidget {
                               ],
                             ),
                             const SizedBox(height: 18),
-                            Container(
-                              height: 334,
-                              width: double.infinity,
-                              padding: const EdgeInsets.all(16),
-                              decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(12),
-                                ),
-                                color: AppColors.blueBG,
-                              ),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      const Text(
-                                        'Readings',
-                                        style: TextStyle(
-                                          fontFamily: 'NR',
-                                          fontSize: 16,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      SvgPicture.asset(
-                                        'assets/images/icon_open.svg',
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 16),
-                                  const Text(
-                                    'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.',
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      fontFamily: 'NM',
-                                      fontSize: 16,
-                                      color: AppColors.white,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 16),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: const BorderRadius.all(
-                                          Radius.circular(4),
-                                        ),
-                                        child: SizedBox(
-                                          height: 28,
-                                          width: 86,
-                                          child: ColoredBox(
-                                            color: AppColors.greenAccent,
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                SvgPicture.asset(
-                                                    'assets/images/icon_share.svg'),
-                                                const SizedBox(width: 5),
-                                                const Text(
-                                                  'Share',
-                                                  style: TextStyle(
-                                                    fontSize: 14,
-                                                    color: AppColors.blueBG,
-                                                    fontFamily: 'NB',
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                            OpenContainer(
+                              openColor: Colors.transparent,
+                              closedColor: Colors.transparent,
+                              middleColor: Colors.transparent,
+                              transitionDuration: const Duration(seconds: 1),
+                              transitionType:
+                                  ContainerTransitionType.fadeThrough,
+                              closedElevation: 0.0,
+                              openBuilder: (context, _) =>
+                                  const BookReadScreen(),
+                              closedBuilder: (context, openContainer) =>
+                                  const _BookReadCard(),
                             ),
                             const SizedBox(height: 50),
                           ],
@@ -263,6 +209,88 @@ class AudioPlayerScreen extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _BookReadCard extends StatelessWidget {
+  const _BookReadCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 392,
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(12),
+        ),
+        color: AppColors.blueBG,
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Readings',
+                style: TextStyle(
+                  fontFamily: 'NR',
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+              ),
+              SvgPicture.asset(
+                'assets/images/icon_open.svg',
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          const Text(
+            'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.',
+            textAlign: TextAlign.start,
+            style: TextStyle(
+              fontFamily: 'NM',
+              fontSize: 16,
+              color: AppColors.white,
+            ),
+          ),
+          const SizedBox(height: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ClipRRect(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(4),
+                ),
+                child: SizedBox(
+                  height: 28,
+                  width: 86,
+                  child: ColoredBox(
+                    color: AppColors.greenAccent,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset('assets/images/icon_share.svg'),
+                        const SizedBox(width: 5),
+                        const Text(
+                          'Share',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: AppColors.blueBG,
+                            fontFamily: 'NB',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
