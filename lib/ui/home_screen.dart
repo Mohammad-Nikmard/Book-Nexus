@@ -1,5 +1,6 @@
 import 'package:book_nexsus/constants/constants.dart';
 import 'package:book_nexsus/widgets/explore_topic_list.dart';
+import 'package:book_nexsus/widgets/story_card.dart';
 import 'package:book_nexsus/widgets/tag_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,7 +13,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late ScrollController _scrollController;
   int selectedIndex = 0;
+  bool onTapped = false;
+  bool needToShowExpandedStory = false;
+  bool needToShowContent = false;
   List<String> topicNames = [
     'For you',
     'Trending',
@@ -26,6 +31,72 @@ class _HomeScreenState extends State<HomeScreen> {
     'icon_book_open',
     'icon_fire',
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+
+    _scrollController.addListener(() async {
+      if (_scrollController.offset.round() < -40 && !onTapped) {
+        await chnageStoryCardLogic();
+      } else if (_scrollController.offset.round() > 5 && onTapped) {
+        setState(() {
+          needToShowContent = false;
+        });
+        await chnageStoryCardLogic();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  Future<void> chnageStoryCardLogic() async {
+    if (!needToShowExpandedStory) {
+      setState(() {
+        onTapped = true;
+      });
+      await Future.delayed(
+        const Duration(milliseconds: 300),
+        () {
+          setState(() {
+            needToShowExpandedStory = true;
+          });
+        },
+      );
+
+      await Future.delayed(
+        const Duration(milliseconds: 200),
+        () {
+          setState(() {
+            needToShowContent = true;
+          });
+        },
+      );
+    } else {
+      await Future.delayed(
+        const Duration(milliseconds: 500),
+        () {
+          setState(() {
+            needToShowExpandedStory = false;
+          });
+        },
+      );
+      await Future.delayed(
+        const Duration(milliseconds: 500),
+        () {
+          setState(() {
+            onTapped = false;
+          });
+        },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,9 +135,39 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: SafeArea(
         child: CustomScrollView(
+          controller: _scrollController,
+          physics: const BouncingScrollPhysics(),
           slivers: [
             SliverPadding(
-              padding: const EdgeInsets.symmetric(vertical: 32),
+              padding: const EdgeInsets.only(top: 15),
+              sliver: SliverToBoxAdapter(
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.decelerate,
+                  height: onTapped ? 212 : 100,
+                  child: CustomScrollView(
+                    scrollDirection: Axis.horizontal,
+                    slivers: [
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate((context, index) {
+                          return Padding(
+                            padding: EdgeInsets.only(
+                                right: 10, left: index == 0 ? 16 : 0),
+                            child: StoryCard(
+                              needToShowContent: needToShowContent,
+                              onTapped: onTapped,
+                              needToShowExpandedStory: needToShowExpandedStory,
+                            ),
+                          );
+                        }, childCount: 10),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
               sliver: SliverToBoxAdapter(
                 child: TagListView(
                   selectedIndex: (value) {
@@ -82,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SliverToBoxAdapter(
               child: Container(
                 width: double.infinity,
-                margin: const EdgeInsets.only(right: 16, left: 16, bottom: 32),
+                margin: const EdgeInsets.only(right: 16, left: 16, bottom: 20),
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(
                     Radius.circular(8),
