@@ -51,8 +51,11 @@ class AudioPlayerScreen extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                SvgPicture.asset(
-                                  'assets/images/icon_arrow_down.svg',
+                                GestureDetector(
+                                  onTap: () => Navigator.pop(context),
+                                  child: SvgPicture.asset(
+                                    'assets/images/icon_arrow_down.svg',
+                                  ),
                                 ),
                                 SvgPicture.asset(
                                   'assets/images/icon_more_vertical.svg',
