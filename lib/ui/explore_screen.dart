@@ -5,6 +5,7 @@ import 'package:book_nexsus/widgets/custom_divider_header.dart';
 import 'package:book_nexsus/widgets/custom_product_tag_list.dart';
 import 'package:book_nexsus/widgets/custom_search_field.dart';
 import 'package:book_nexsus/widgets/explore_topic_list.dart';
+import 'package:book_nexsus/widgets/mini_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -48,59 +49,65 @@ class _ExploreScreenState extends State<ExploreScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(left: 16, bottom: 25, top: 8),
-              child: CustomDividerHeader(
-                header: 'Explore',
-                boxWidth: 94,
-              ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height - 75,
-              child: CustomScrollView(
-                slivers: [
-                  SliverPadding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    sliver: SliverToBoxAdapter(
-                      child: GestureDetector(
-                        onTap: () => AppNavigator.navigatePush(
-                          context,
-                          const SearchScreen(),
-                        ),
-                        child: CustomSearchField(
-                          height: 45,
-                          controller: searchController,
-                          hintText: 'Title, author or keyword',
-                          prefixIcon: SizedBox(
-                            height: 24,
-                            width: 24,
-                            child: Center(
-                              child: SvgPicture.asset(
-                                'assets/images/icon_search.svg',
+      body: Stack(
+        alignment: AlignmentDirectional.bottomCenter,
+        children: [
+          SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(left: 16, bottom: 25, top: 8),
+                  child: CustomDividerHeader(
+                    header: 'Explore',
+                    boxWidth: 94,
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height - 142,
+                  child: CustomScrollView(
+                    slivers: [
+                      SliverPadding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        sliver: SliverToBoxAdapter(
+                          child: GestureDetector(
+                            onTap: () => AppNavigator.navigatePush(
+                              context,
+                              const SearchScreen(),
+                            ),
+                            child: CustomSearchField(
+                              height: 45,
+                              controller: searchController,
+                              hintText: 'Title, author or keyword',
+                              prefixIcon: SizedBox(
+                                height: 24,
+                                width: 24,
+                                child: Center(
+                                  child: SvgPicture.asset(
+                                    'assets/images/icon_search.svg',
+                                  ),
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
-                    ),
+                      SliverToBoxAdapter(
+                        child: _ExploreTopicsSection(
+                          topicNames: topicNames,
+                        ),
+                      ),
+                      ExploreTopicLists(
+                        topicNames: topicNames,
+                      ),
+                    ],
                   ),
-                  SliverToBoxAdapter(
-                    child: _ExploreTopicsSection(
-                      topicNames: topicNames,
-                    ),
-                  ),
-                  ExploreTopicLists(
-                    topicNames: topicNames,
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+          const MiniPlayer(),
+        ],
       ),
     );
   }

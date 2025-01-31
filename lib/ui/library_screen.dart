@@ -2,6 +2,7 @@ import 'package:book_nexsus/constants/constants.dart';
 import 'package:book_nexsus/ui/product_detail_screen.dart';
 import 'package:book_nexsus/util/app_navigator.dart';
 import 'package:book_nexsus/widgets/custom_divider_header.dart';
+import 'package:book_nexsus/widgets/mini_player.dart';
 import 'package:book_nexsus/widgets/search_product_cover.dart';
 import 'package:book_nexsus/widgets/tag_list_view.dart';
 import 'package:flutter/material.dart';
@@ -29,52 +30,58 @@ class _LibraryScreenState extends State<LibraryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: CustomScrollView(
-            slivers: [
-              const SliverPadding(
-                padding: EdgeInsets.only(top: 10, bottom: 24),
-                sliver: SliverToBoxAdapter(
-                  child: Row(
-                    children: [
-                      CustomDividerHeader(
-                        header: 'My Library',
-                        boxWidth: 130,
+      body: Stack(
+        alignment: AlignmentDirectional.bottomCenter,
+        children: [
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: CustomScrollView(
+                slivers: [
+                  const SliverPadding(
+                    padding: EdgeInsets.only(top: 10, bottom: 24),
+                    sliver: SliverToBoxAdapter(
+                      child: Row(
+                        children: [
+                          CustomDividerHeader(
+                            header: 'My Library',
+                            boxWidth: 130,
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-              SliverPadding(
-                padding: const EdgeInsets.only(bottom: 24),
-                sliver: SliverToBoxAdapter(
-                  child: TagListView(
-                    iconList: tagIcons,
-                    tagNameList: tagNames,
-                    selectedIndex: (value) {
-                      setState(() {
-                        selectedIndex = value;
-                      });
+                  SliverPadding(
+                    padding: const EdgeInsets.only(bottom: 24),
+                    sliver: SliverToBoxAdapter(
+                      child: TagListView(
+                        iconList: tagIcons,
+                        tagNameList: tagNames,
+                        selectedIndex: (value) {
+                          setState(() {
+                            selectedIndex = value;
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                  Builder(
+                    builder: (context) {
+                      if (selectedIndex == 0) {
+                        return const _SavedBooksSection();
+                      } else if (selectedIndex == 1) {
+                        return const _InProgressListSection();
+                      } else {
+                        return const _CompletedListSection();
+                      }
                     },
                   ),
-                ),
+                ],
               ),
-              Builder(
-                builder: (context) {
-                  if (selectedIndex == 0) {
-                    return const _SavedBooksSection();
-                  } else if (selectedIndex == 1) {
-                    return const _InProgressListSection();
-                  } else {
-                    return const _CompletedListSection();
-                  }
-                },
-              ),
-            ],
+            ),
           ),
-        ),
+          const MiniPlayer(),
+        ],
       ),
     );
   }

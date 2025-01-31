@@ -1,5 +1,5 @@
 import 'package:book_nexsus/constants/constants.dart';
-import 'package:book_nexsus/ui/home_screen.dart';
+import 'package:book_nexsus/ui/dashboard_screen.dart';
 import 'package:book_nexsus/ui/login_with_email_screen.dart';
 import 'package:book_nexsus/ui/login_with_password_screen.dart';
 import 'package:book_nexsus/util/app_navigator.dart';
@@ -144,7 +144,7 @@ class _BlurBoxContentState extends State<_BlurBoxContent> {
         CustomElevatedButton(
           onPressed: () => AppNavigator.navigateReplacement(
             context,
-            const HomeScreen(),
+            const DashboardScreen(),
           ),
           text: 'Verify',
         ),

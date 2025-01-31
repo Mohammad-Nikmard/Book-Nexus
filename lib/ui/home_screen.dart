@@ -1,8 +1,8 @@
 import 'package:book_nexsus/constants/constants.dart';
 import 'package:book_nexsus/ui/account_screen.dart';
-import 'package:book_nexsus/ui/audio_player_screen.dart';
 import 'package:book_nexsus/util/app_navigator.dart';
 import 'package:book_nexsus/widgets/explore_topic_list.dart';
+import 'package:book_nexsus/widgets/mini_player.dart';
 import 'package:book_nexsus/widgets/story_card.dart';
 import 'package:book_nexsus/widgets/tag_list_view.dart';
 import 'package:flutter/material.dart';
@@ -98,28 +98,6 @@ class _HomeScreenState extends State<HomeScreen> {
         },
       );
     }
-  }
-
-  void openAudioPlayer(BuildContext context) {
-    Navigator.of(context).push(_bottomToTopRoute());
-  }
-
-  Route _bottomToTopRoute() {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) =>
-          const AudioPlayerScreen(),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(0.0, 1.0);
-        const end = Offset.zero;
-        const curve = Curves.easeInOut;
-
-        var tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-        var offsetAnimation = animation.drive(tween);
-
-        return SlideTransition(position: offsetAnimation, child: child);
-      },
-    );
   }
 
   @override
@@ -269,123 +247,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                ExploreTopicLists(
-                  topicNames: topicNames,
-                ),
-              ],
-            ),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SliderTheme(
-                  data: SliderTheme.of(context).copyWith(
-                    trackHeight: 0.5,
-                    activeTrackColor: AppColors.greenAccent,
-                    inactiveTrackColor: const Color(0xff1E211C),
-                    overlayShape: SliderComponentShape.noOverlay,
-                    thumbShape: const RoundSliderThumbShape(
-                      enabledThumbRadius: 0,
-                    ),
-                  ),
-                  child: Slider(
-                    value: 0.5,
-                    thumbColor: Colors.transparent,
-                    inactiveColor: const Color(0xff232538),
-                    onChanged: (value) {},
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () => openAudioPlayer(context),
-                  child: SizedBox(
-                    height: 70,
-                    width: double.infinity,
-                    child: ColoredBox(
-                      color: const Color(0xff1E211C),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              height: 54,
-                              width: 38,
-                              child: Image.asset(
-                                'assets/images/The Good Guy Cover.png',
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    'Continue Listening',
-                                    style: TextStyle(
-                                      fontFamily: 'NM',
-                                      fontSize: 14,
-                                      color: AppColors.greenAccent,
-                                    ),
-                                  ),
-                                  const Spacer(),
-                                  SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.55,
-                                    child: const Text(
-                                      'Managers who want to create positive work environments',
-                                      style: TextStyle(
-                                        fontFamily: 'NR',
-                                        fontSize: 12,
-                                        color: AppColors.white,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 2,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const Spacer(),
-                            Row(
-                              children: [
-                                Container(
-                                  height: 32,
-                                  width: 32,
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: AppColors.greenAccent,
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(6.0),
-                                    child: SvgPicture.asset(
-                                      'assets/images/icon_play.svg',
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Container(
-                                  height: 32,
-                                  width: 32,
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: AppColors.greenAccent,
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(6.0),
-                                    child: SvgPicture.asset(
-                                      'assets/images/icon_forward.svg',
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                SliverPadding(
+                  padding: const EdgeInsets.only(bottom: 40),
+                  sliver: ExploreTopicLists(
+                    topicNames: topicNames,
                   ),
                 ),
               ],
             ),
+            const MiniPlayer(),
           ],
         ),
       ),
