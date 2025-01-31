@@ -1,4 +1,6 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/ui/product_detail_screen.dart';
+import 'package:book_nexsus/util/app_navigator.dart';
 import 'package:book_nexsus/widgets/custom_divider_header.dart';
 import 'package:book_nexsus/widgets/search_product_cover.dart';
 import 'package:book_nexsus/widgets/tag_list_view.dart';
@@ -86,14 +88,21 @@ class _CompletedListSection extends StatelessWidget {
     return SliverGrid(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
-          return const SearchProductCover(
-            image: 'The Good Guy Cover',
-            title: 'The good guy',
-            author: 'Mark mcallister',
-            subTitle: 'A story about guy who was very good until the end when',
-            isInProgress: false,
-            audioLength: '8m',
-            bookLength: '8m',
+          return GestureDetector(
+            onTap: () => AppNavigator.navigatePush(
+              context,
+              const ProductDetailScreen(),
+            ),
+            child: const SearchProductCover(
+              image: 'The Good Guy Cover',
+              title: 'The good guy',
+              author: 'Mark mcallister',
+              subTitle:
+                  'A story about guy who was very good until the end when',
+              isInProgress: false,
+              audioLength: '8m',
+              bookLength: '8m',
+            ),
           );
         },
         childCount: 10,
@@ -116,14 +125,21 @@ class _InProgressListSection extends StatelessWidget {
     return SliverGrid(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
-          return const SearchProductCover(
-            image: 'The Good Guy Cover',
-            title: 'The good guy',
-            author: 'Mark mcallister',
-            subTitle: 'A story about guy who was very good until the end when',
-            isInProgress: false,
-            audioLength: '8m',
-            bookLength: '8m',
+          return GestureDetector(
+            onTap: () => AppNavigator.navigatePush(
+              context,
+              const ProductDetailScreen(),
+            ),
+            child: const SearchProductCover(
+              image: 'The Good Guy Cover',
+              title: 'The good guy',
+              author: 'Mark mcallister',
+              subTitle:
+                  'A story about guy who was very good until the end when',
+              isInProgress: false,
+              audioLength: '8m',
+              bookLength: '8m',
+            ),
           );
         },
         childCount: 5,
@@ -146,14 +162,21 @@ class _SavedBooksSection extends StatelessWidget {
     return SliverGrid(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
-          return const SearchProductCover(
-            image: 'The Good Guy Cover',
-            title: 'The good guy',
-            author: 'Mark mcallister',
-            subTitle: 'A story about guy who was very good until the end when',
-            isInProgress: false,
-            audioLength: '8m',
-            bookLength: '8m',
+          return GestureDetector(
+            onTap: () => AppNavigator.navigatePush(
+              context,
+              const ProductDetailScreen(),
+            ),
+            child: const SearchProductCover(
+              image: 'The Good Guy Cover',
+              title: 'The good guy',
+              author: 'Mark mcallister',
+              subTitle:
+                  'A story about guy who was very good until the end when',
+              isInProgress: false,
+              audioLength: '8m',
+              bookLength: '8m',
+            ),
           );
         },
         childCount: 3,

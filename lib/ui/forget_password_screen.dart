@@ -1,8 +1,12 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/ui/login_with_email_screen.dart';
+import 'package:book_nexsus/ui/set_password_screen.dart';
+import 'package:book_nexsus/util/app_navigator.dart';
 import 'package:book_nexsus/widgets/custom_back_button.dart';
 import 'package:book_nexsus/widgets/custom_blur_box.dart';
 import 'package:book_nexsus/widgets/custom_elevated_button.dart';
 import 'package:book_nexsus/widgets/custom_text_field.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
@@ -25,11 +29,17 @@ class ForgetPasswordScreen extends StatelessWidget {
         body: SafeArea(
           child: Stack(
             children: [
-              const Positioned(
+              Positioned(
                 top: 16,
                 left: 16,
-                child: CustomBackIcon(
-                  text: 'Back to Log in',
+                child: GestureDetector(
+                  onTap: () => AppNavigator.navigateReplacement(
+                    context,
+                    const LoginWithEmailScreen(),
+                  ),
+                  child: const CustomBackIcon(
+                    text: 'Back to Log in',
+                  ),
                 ),
               ),
               Center(
@@ -124,14 +134,17 @@ class _BlurBoxContentState extends State<_BlurBoxContent> {
         ),
         const SizedBox(height: 16),
         CustomElevatedButton(
-          onPressed: () {},
+          onPressed: () => AppNavigator.navigateReplacement(
+            context,
+            const SetPasswordScreen(),
+          ),
           text: 'Submit',
         ),
         const SizedBox(height: 24),
         RichText(
-          text: const TextSpan(
+          text: TextSpan(
             children: [
-              TextSpan(
+              const TextSpan(
                 text: "Don't have an account? ",
                 style: TextStyle(
                   fontFamily: 'NR',
@@ -141,7 +154,12 @@ class _BlurBoxContentState extends State<_BlurBoxContent> {
               ),
               TextSpan(
                 text: 'Sign up',
-                style: TextStyle(
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () => AppNavigator.navigateReplacement(
+                        context,
+                        const LoginWithEmailScreen(),
+                      ),
+                style: const TextStyle(
                   fontFamily: 'NB',
                   fontSize: 16,
                   color: AppColors.greenAccent,

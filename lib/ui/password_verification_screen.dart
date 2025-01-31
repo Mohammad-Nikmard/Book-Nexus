@@ -1,4 +1,8 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/ui/home_screen.dart';
+import 'package:book_nexsus/ui/login_with_email_screen.dart';
+import 'package:book_nexsus/ui/login_with_password_screen.dart';
+import 'package:book_nexsus/util/app_navigator.dart';
 import 'package:book_nexsus/widgets/custom_back_button.dart';
 import 'package:book_nexsus/widgets/custom_blur_box.dart';
 import 'package:book_nexsus/widgets/custom_elevated_button.dart';
@@ -8,7 +12,11 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 
 class PasswordVerificationScreen extends StatelessWidget {
-  const PasswordVerificationScreen({super.key});
+  const PasswordVerificationScreen({
+    super.key,
+    required this.isInLoginPassword,
+  });
+  final bool isInLoginPassword;
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +34,19 @@ class PasswordVerificationScreen extends StatelessWidget {
         body: SafeArea(
           child: Stack(
             children: [
-              const Positioned(
+              Positioned(
                 top: 16,
                 left: 16,
-                child: CustomBackIcon(
-                  text: 'Back to Log in',
+                child: GestureDetector(
+                  onTap: () => AppNavigator.navigateReplacement(
+                    context,
+                    isInLoginPassword
+                        ? const LoginWithPasswordScreen()
+                        : const LoginWithEmailScreen(),
+                  ),
+                  child: const CustomBackIcon(
+                    text: 'Back to Log in',
+                  ),
                 ),
               ),
               Center(
@@ -126,7 +142,10 @@ class _BlurBoxContentState extends State<_BlurBoxContent> {
         ),
         const SizedBox(height: 16),
         CustomElevatedButton(
-          onPressed: () {},
+          onPressed: () => AppNavigator.navigateReplacement(
+            context,
+            const HomeScreen(),
+          ),
           text: 'Verify',
         ),
         const SizedBox(height: 24),

@@ -1,7 +1,11 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/ui/genre_preferences_screen.dart';
+import 'package:book_nexsus/ui/login_with_email_screen.dart';
+import 'package:book_nexsus/util/app_navigator.dart';
 import 'package:book_nexsus/widgets/custom_blur_box.dart';
 import 'package:book_nexsus/widgets/custom_elevated_button.dart';
 import 'package:book_nexsus/widgets/custom_text_field.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
@@ -167,15 +171,18 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                       const SizedBox(height: 16),
                       CustomElevatedButton(
-                        onPressed: () {},
+                        onPressed: () => AppNavigator.navigateReplacement(
+                          context,
+                          const GenrePreferencesScreen(),
+                        ),
                         text: 'Create Account',
                       ),
                       const SizedBox(height: 24),
                       Center(
                         child: RichText(
-                          text: const TextSpan(
+                          text: TextSpan(
                             children: [
-                              TextSpan(
+                              const TextSpan(
                                 text: "Already have an account? ",
                                 style: TextStyle(
                                   fontFamily: 'NR',
@@ -184,8 +191,14 @@ class _SignupScreenState extends State<SignupScreen> {
                                 ),
                               ),
                               TextSpan(
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap =
+                                      () => AppNavigator.navigateReplacement(
+                                            context,
+                                            const LoginWithEmailScreen(),
+                                          ),
                                 text: 'Log in',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontFamily: 'NB',
                                   fontSize: 16,
                                   color: AppColors.greenAccent,

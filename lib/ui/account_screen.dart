@@ -1,4 +1,6 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/ui/profile_screen.dart';
+import 'package:book_nexsus/util/app_navigator.dart';
 import 'package:book_nexsus/widgets/custom_back_button.dart';
 import 'package:book_nexsus/widgets/custom_divider_header.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +21,11 @@ class AccountScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 16),
-              const CustomBackIcon(
-                text: 'Home',
+              GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: const CustomBackIcon(
+                  text: 'Home',
+                ),
               ),
               const SizedBox(height: 24),
               const CustomDividerHeader(
@@ -90,7 +95,10 @@ class AccountScreen extends StatelessWidget {
               _AccountOptionRow(
                 title: 'Profile details',
                 icon: 'icon_user',
-                onTapped: () {},
+                onTapped: () => AppNavigator.navigatePush(
+                  context,
+                  const ProfileScreen(),
+                ),
                 showArrow: true,
               ),
               _AccountOptionRow(

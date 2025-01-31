@@ -1,4 +1,6 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/ui/home_screen.dart';
+import 'package:book_nexsus/util/app_navigator.dart';
 import 'package:book_nexsus/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -137,7 +139,10 @@ class _GenreBoxContent extends StatelessWidget {
         ),
         const SizedBox(height: 24),
         CustomElevatedButton(
-          onPressed: () {},
+          onPressed: () => AppNavigator.navigateReplacement(
+            context,
+            const HomeScreen(),
+          ),
           text: 'Continue',
         ),
         const SizedBox(height: 12),

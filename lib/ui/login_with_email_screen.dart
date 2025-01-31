@@ -1,7 +1,12 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/ui/forget_password_screen.dart';
+import 'package:book_nexsus/ui/login_with_password_screen.dart';
+import 'package:book_nexsus/ui/signup_screen.dart';
+import 'package:book_nexsus/util/app_navigator.dart';
 import 'package:book_nexsus/widgets/custom_blur_box.dart';
 import 'package:book_nexsus/widgets/custom_elevated_button.dart';
 import 'package:book_nexsus/widgets/custom_text_field.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
@@ -110,16 +115,25 @@ class _BlurBoxContent extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         CustomElevatedButton(
-          onPressed: () {},
+          onPressed: () => AppNavigator.navigateReplacement(
+            context,
+            const LoginWithPasswordScreen(),
+          ),
           text: 'Continue',
         ),
         const SizedBox(height: 16),
-        const Text(
-          'Forgot Password?',
-          style: TextStyle(
-            fontFamily: 'NB',
-            fontSize: 16,
-            color: AppColors.greenAccent,
+        GestureDetector(
+          onTap: () => AppNavigator.navigateReplacement(
+            context,
+            const ForgetPasswordScreen(),
+          ),
+          child: const Text(
+            'Forgot Password?',
+            style: TextStyle(
+              fontFamily: 'NB',
+              fontSize: 16,
+              color: AppColors.greenAccent,
+            ),
           ),
         ),
         const SizedBox(height: 24),
@@ -167,9 +181,9 @@ class _BlurBoxContent extends StatelessWidget {
         ),
         const SizedBox(height: 32),
         RichText(
-          text: const TextSpan(
+          text: TextSpan(
             children: [
-              TextSpan(
+              const TextSpan(
                 text: "Don't have an account? ",
                 style: TextStyle(
                   fontFamily: 'NR',
@@ -178,8 +192,10 @@ class _BlurBoxContent extends StatelessWidget {
                 ),
               ),
               TextSpan(
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () => SignupScreen(),
                 text: 'Sign up',
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'NB',
                   fontSize: 16,
                   color: AppColors.greenAccent,

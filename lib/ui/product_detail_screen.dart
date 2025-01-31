@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:book_nexsus/constants/constants.dart';
 import 'package:book_nexsus/ui/product_listing_screen.dart';
+import 'package:book_nexsus/util/app_navigator.dart';
 import 'package:book_nexsus/widgets/custom_product_tag_list.dart';
 import 'package:book_nexsus/widgets/product_explore_box.dart';
 import 'package:flutter/material.dart';
@@ -584,7 +585,13 @@ class _SimilarBooksSection extends StatelessWidget {
                       (context, index) {
                         return Padding(
                           padding: EdgeInsets.only(left: index == 0 ? 15 : 8),
-                          child: const ProductExploreBox(),
+                          child: GestureDetector(
+                            onTap: () => AppNavigator.navigatePush(
+                              context,
+                              const ProductDetailScreen(),
+                            ),
+                            child: const ProductExploreBox(),
+                          ),
                         );
                       },
                       childCount: 10,

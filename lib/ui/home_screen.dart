@@ -1,5 +1,7 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/ui/account_screen.dart';
 import 'package:book_nexsus/ui/audio_player_screen.dart';
+import 'package:book_nexsus/util/app_navigator.dart';
 import 'package:book_nexsus/widgets/explore_topic_list.dart';
 import 'package:book_nexsus/widgets/story_card.dart';
 import 'package:book_nexsus/widgets/tag_list_view.dart';
@@ -146,12 +148,18 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: 16),
-            child: CircleAvatar(
-              radius: 25,
-              backgroundColor: Colors.cyan,
+            padding: const EdgeInsets.only(right: 16),
+            child: GestureDetector(
+              onTap: () => AppNavigator.navigatePush(
+                context,
+                const AccountScreen(),
+              ),
+              child: const CircleAvatar(
+                radius: 25,
+                backgroundColor: Colors.cyan,
+              ),
             ),
           ),
         ],

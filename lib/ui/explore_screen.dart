@@ -1,4 +1,6 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/ui/search_screen.dart';
+import 'package:book_nexsus/util/app_navigator.dart';
 import 'package:book_nexsus/widgets/custom_divider_header.dart';
 import 'package:book_nexsus/widgets/custom_product_tag_list.dart';
 import 'package:book_nexsus/widgets/custom_search_field.dart';
@@ -64,16 +66,22 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   SliverPadding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     sliver: SliverToBoxAdapter(
-                      child: CustomSearchField(
-                        height: 45,
-                        controller: searchController,
-                        hintText: 'Title, author or keyword',
-                        prefixIcon: SizedBox(
-                          height: 24,
-                          width: 24,
-                          child: Center(
-                            child: SvgPicture.asset(
-                              'assets/images/icon_search.svg',
+                      child: GestureDetector(
+                        onTap: () => AppNavigator.navigatePush(
+                          context,
+                          const SearchScreen(),
+                        ),
+                        child: CustomSearchField(
+                          height: 45,
+                          controller: searchController,
+                          hintText: 'Title, author or keyword',
+                          prefixIcon: SizedBox(
+                            height: 24,
+                            width: 24,
+                            child: Center(
+                              child: SvgPicture.asset(
+                                'assets/images/icon_search.svg',
+                              ),
                             ),
                           ),
                         ),

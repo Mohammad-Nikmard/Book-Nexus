@@ -19,8 +19,11 @@ class ProfileScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 16),
-              const CustomBackIcon(
-                text: 'Back',
+              GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: const CustomBackIcon(
+                  text: 'Back',
+                ),
               ),
               const SizedBox(height: 24),
               AnimationLimiter(

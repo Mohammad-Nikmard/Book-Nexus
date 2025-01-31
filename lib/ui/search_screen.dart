@@ -42,12 +42,15 @@ class _SearchScreenState extends State<SearchScreen> {
                 child: CustomSearchField(
                   height: 52,
                   controller: searchController,
-                  prefixIcon: SizedBox(
-                    height: 24,
-                    width: 24,
-                    child: Center(
-                      child: SvgPicture.asset(
-                        'assets/images/icon_arrow_left.svg',
+                  prefixIcon: GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: SizedBox(
+                      height: 24,
+                      width: 24,
+                      child: Center(
+                        child: SvgPicture.asset(
+                          'assets/images/icon_arrow_left.svg',
+                        ),
                       ),
                     ),
                   ),
