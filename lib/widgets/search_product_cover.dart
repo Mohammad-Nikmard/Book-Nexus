@@ -1,6 +1,6 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class SearchProductCover extends StatelessWidget {
   const SearchProductCover({
@@ -29,13 +29,18 @@ class SearchProductCover extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 254,
-            width: double.infinity,
-            child: FittedBox(
-              fit: BoxFit.cover,
-              child: Image.asset(
-                'assets/images/$image.png',
+          ClipRRect(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(15),
+            ),
+            child: SizedBox(
+              height: 254,
+              width: double.infinity,
+              child: FittedBox(
+                fit: BoxFit.cover,
+                child: Image.asset(
+                  image,
+                ),
               ),
             ),
           ),
@@ -127,8 +132,7 @@ class SearchProductCover extends StatelessWidget {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      SvgPicture.asset(
-                                        'assets/images/icon_headphone.svg',
+                                      Assets.svg.headphone.svg(
                                         height: 16,
                                         width: 16,
                                         colorFilter: const ColorFilter.mode(
@@ -168,8 +172,7 @@ class SearchProductCover extends StatelessWidget {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      SvgPicture.asset(
-                                        'assets/images/icon_glasses.svg',
+                                      Assets.svg.glasses.svg(
                                         height: 16,
                                         width: 16,
                                       ),

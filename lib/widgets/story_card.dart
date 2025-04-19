@@ -1,6 +1,6 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class StoryCard extends StatelessWidget {
   const StoryCard({
@@ -62,9 +62,7 @@ class StoryCard extends StatelessWidget {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  SvgPicture.asset(
-                                    'assets/images/icon_quotation.svg',
-                                  ),
+                                  Assets.svg.quotation.svg(),
                                 ],
                               ),
                               const Padding(
@@ -86,9 +84,7 @@ class StoryCard extends StatelessWidget {
                                     padding: const EdgeInsets.only(bottom: 20),
                                     child: RotatedBox(
                                       quarterTurns: 2,
-                                      child: SvgPicture.asset(
-                                        'assets/images/icon_quotation.svg',
-                                      ),
+                                      child: Assets.svg.quotation.svg(),
                                     ),
                                   ),
                                 ],

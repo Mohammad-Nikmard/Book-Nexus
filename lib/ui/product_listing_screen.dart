@@ -1,7 +1,8 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/extensions/context_extension.dart';
+import 'package:book_nexsus/gen/assets.gen.dart';
 import 'package:book_nexsus/widgets/search_product_cover.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class ProductListingScreen extends StatelessWidget {
   const ProductListingScreen({
@@ -33,15 +34,13 @@ class ProductListingScreen extends StatelessWidget {
               ),
             ),
             leading: GestureDetector(
-              onTap: () => Navigator.pop(context),
+              onTap: () => context.pop,
               child: SizedBox(
                 height: 20,
                 width: 20,
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: SvgPicture.asset(
-                    'assets/images/icon_arrow_left.svg',
-                  ),
+                  child: Assets.svg.arrowLeft.svg(),
                 ),
               ),
             ),

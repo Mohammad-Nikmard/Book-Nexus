@@ -1,15 +1,15 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/extensions/context_extension.dart';
+import 'package:book_nexsus/gen/assets.gen.dart';
 import 'package:book_nexsus/ui/dashboard_screen.dart';
 import 'package:book_nexsus/ui/login_with_email_screen.dart';
 import 'package:book_nexsus/ui/login_with_password_screen.dart';
-import 'package:book_nexsus/util/app_navigator.dart';
 import 'package:book_nexsus/widgets/custom_back_button.dart';
 import 'package:book_nexsus/widgets/custom_blur_box.dart';
 import 'package:book_nexsus/widgets/custom_elevated_button.dart';
 import 'package:book_nexsus/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:flutter_svg/svg.dart';
 
 class PasswordVerificationScreen extends StatelessWidget {
   const PasswordVerificationScreen({
@@ -38,8 +38,7 @@ class PasswordVerificationScreen extends StatelessWidget {
                 top: 16,
                 left: 16,
                 child: GestureDetector(
-                  onTap: () => AppNavigator.navigateReplacement(
-                    context,
+                  onTap: () => context.pushReplacement(
                     isInLoginPassword
                         ? const LoginWithPasswordScreen()
                         : const LoginWithEmailScreen(),
@@ -142,10 +141,7 @@ class _BlurBoxContentState extends State<_BlurBoxContent> {
         ),
         const SizedBox(height: 16),
         CustomElevatedButton(
-          onPressed: () => AppNavigator.navigateReplacement(
-            context,
-            const DashboardScreen(),
-          ),
+          onPressed: () => context.pushReplacement(const DashboardScreen()),
           text: 'Verify',
         ),
         const SizedBox(height: 24),
@@ -174,8 +170,7 @@ class _BlurBoxContentState extends State<_BlurBoxContent> {
                 ],
               ),
             ),
-            SvgPicture.asset(
-              'assets/images/icon_reload.svg',
+            Assets.svg.reload.svg(
               height: 14,
               width: 14,
             ),

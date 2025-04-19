@@ -1,13 +1,13 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/extensions/context_extension.dart';
+import 'package:book_nexsus/gen/assets.gen.dart';
 import 'package:book_nexsus/ui/search_screen.dart';
-import 'package:book_nexsus/util/app_navigator.dart';
 import 'package:book_nexsus/widgets/custom_divider_header.dart';
 import 'package:book_nexsus/widgets/custom_product_tag_list.dart';
 import 'package:book_nexsus/widgets/custom_search_field.dart';
 import 'package:book_nexsus/widgets/explore_topic_list.dart';
 import 'package:book_nexsus/widgets/mini_player.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({super.key});
@@ -64,17 +64,14 @@ class _ExploreScreenState extends State<ExploreScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height - 142,
+                  height: context.screenHeight - 210,
                   child: CustomScrollView(
                     slivers: [
                       SliverPadding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         sliver: SliverToBoxAdapter(
                           child: GestureDetector(
-                            onTap: () => AppNavigator.navigatePush(
-                              context,
-                              const SearchScreen(),
-                            ),
+                            onTap: () => context.push(const SearchScreen()),
                             child: CustomSearchField(
                               height: 45,
                               controller: searchController,
@@ -83,9 +80,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                                 height: 24,
                                 width: 24,
                                 child: Center(
-                                  child: SvgPicture.asset(
-                                    'assets/images/icon_search.svg',
-                                  ),
+                                  child: Assets.svg.search.svg(),
                                 ),
                               ),
                             ),
@@ -97,8 +92,11 @@ class _ExploreScreenState extends State<ExploreScreen> {
                           topicNames: topicNames,
                         ),
                       ),
-                      ExploreTopicLists(
-                        topicNames: topicNames,
+                      SliverPadding(
+                        padding: const EdgeInsets.only(bottom: 130),
+                        sliver: ExploreTopicLists(
+                          topicNames: topicNames,
+                        ),
                       ),
                     ],
                   ),
@@ -122,7 +120,7 @@ class _ExploreTopicsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 22, top: 40, bottom: 40),
+      padding: const EdgeInsets.only(left: 16, right: 22, top: 40, bottom: 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -134,6 +132,7 @@ class _ExploreTopicsSection extends StatelessWidget {
               color: AppColors.white,
             ),
           ),
+          const SizedBox(height: 16),
           CustomProductTagList(
             topicNames: topicNames,
           ),

@@ -1,13 +1,13 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/extensions/context_extension.dart';
+import 'package:book_nexsus/gen/assets.gen.dart';
 import 'package:book_nexsus/ui/dashboard_screen.dart';
 import 'package:book_nexsus/ui/forget_password_screen.dart';
-import 'package:book_nexsus/util/app_navigator.dart';
 import 'package:book_nexsus/widgets/custom_blur_box.dart';
 import 'package:book_nexsus/widgets/custom_elevated_button.dart';
 import 'package:book_nexsus/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:flutter_svg/svg.dart';
 
 class LoginWithPasswordScreen extends StatelessWidget {
   const LoginWithPasswordScreen({super.key});
@@ -130,8 +130,7 @@ class _BlurBoxContentState extends State<_BlurBoxContent> {
               ],
             ),
             const Spacer(),
-            SvgPicture.asset(
-              'assets/images/icon_check.svg',
+            Assets.svg.check.svg(
               height: 24,
               width: 24,
             ),
@@ -153,9 +152,7 @@ class _BlurBoxContentState extends State<_BlurBoxContent> {
                     height: 24,
                     width: 24,
                     child: Center(
-                      child: SvgPicture.asset(
-                        'assets/images/icon_eye_close.svg',
-                      ),
+                      child: Assets.svg.eyeClose.svg(),
                     ),
                   )
                 : const Icon(
@@ -166,18 +163,12 @@ class _BlurBoxContentState extends State<_BlurBoxContent> {
         ),
         const SizedBox(height: 16),
         CustomElevatedButton(
-          onPressed: () => AppNavigator.navigateReplacement(
-            context,
-            const DashboardScreen(),
-          ),
+          onPressed: () => context.pushReplacement(const DashboardScreen()),
           text: 'Continue',
         ),
         const SizedBox(height: 16),
         GestureDetector(
-          onTap: () => AppNavigator.navigateReplacement(
-            context,
-            const ForgetPasswordScreen(),
-          ),
+          onTap: () => context.pushReplacement(const ForgetPasswordScreen()),
           child: const Text(
             'Forgot Password?',
             style: TextStyle(

@@ -1,6 +1,6 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class ProductExploreBox extends StatelessWidget {
   const ProductExploreBox({super.key});
@@ -13,19 +13,24 @@ class ProductExploreBox extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 164,
-            width: double.infinity,
-            child: FittedBox(
-              fit: BoxFit.cover,
-              child: Image.asset(
-                'assets/images/The Good Guy Cover.png',
+          ClipRRect(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(10),
+            ),
+            child: SizedBox(
+              height: 164,
+              width: double.infinity,
+              child: FittedBox(
+                fit: BoxFit.cover,
+                child: Image.asset(
+                  Assets.images.romanBookCover.path,
+                ),
               ),
             ),
           ),
           const SizedBox(height: 16),
           const Text(
-            'The good guy',
+            'Roman',
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
@@ -36,7 +41,7 @@ class ProductExploreBox extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           const Text(
-            'mark fellani',
+            'Olivia Willson',
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
@@ -49,8 +54,7 @@ class ProductExploreBox extends StatelessWidget {
           Row(
             children: [
               const SizedBox(width: 3),
-              SvgPicture.asset(
-                'assets/images/icon_headphone.svg',
+              Assets.svg.headphone.svg(
                 height: 14,
                 width: 14,
               ),
@@ -64,10 +68,13 @@ class ProductExploreBox extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 16),
-              SvgPicture.asset(
-                'assets/images/icon_glasses.svg',
+              Assets.svg.glasses.svg(
                 height: 14,
                 width: 14,
+                colorFilter: const ColorFilter.mode(
+                  Colors.white,
+                  BlendMode.srcIn,
+                ),
               ),
               const SizedBox(width: 4),
               const Text(

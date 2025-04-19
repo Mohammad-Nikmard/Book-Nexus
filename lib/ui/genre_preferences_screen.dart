@@ -1,10 +1,10 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/extensions/context_extension.dart';
+import 'package:book_nexsus/gen/assets.gen.dart';
 import 'package:book_nexsus/ui/dashboard_screen.dart';
-import 'package:book_nexsus/util/app_navigator.dart';
 import 'package:book_nexsus/widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:flutter_svg/svg.dart';
 
 class GenrePreferencesScreen extends StatelessWidget {
   const GenrePreferencesScreen({super.key});
@@ -139,10 +139,7 @@ class _GenreBoxContent extends StatelessWidget {
         ),
         const SizedBox(height: 24),
         CustomElevatedButton(
-          onPressed: () => AppNavigator.navigateReplacement(
-            context,
-            const DashboardScreen(),
-          ),
+          onPressed: () => context.pushReplacement(const DashboardScreen()),
           text: 'Continue',
         ),
         const SizedBox(height: 12),
@@ -214,13 +211,11 @@ class _GenreSelectionBoxState extends State<_GenreSelectionBox> {
               ),
               const SizedBox(width: 5),
               AnimatedCrossFade(
-                firstChild: SvgPicture.asset(
-                  'assets/images/icon_circle_plus.svg',
+                firstChild: Assets.svg.circlePlus.svg(
                   height: 24,
                   width: 24,
                 ),
-                secondChild: SvgPicture.asset(
-                  'assets/images/icon_check.svg',
+                secondChild: Assets.svg.check.svg(
                   colorFilter: const ColorFilter.mode(
                     AppColors.background,
                     BlendMode.srcIn,

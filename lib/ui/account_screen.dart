@@ -1,6 +1,7 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/extensions/context_extension.dart';
+import 'package:book_nexsus/gen/assets.gen.dart';
 import 'package:book_nexsus/ui/profile_screen.dart';
-import 'package:book_nexsus/util/app_navigator.dart';
 import 'package:book_nexsus/widgets/custom_back_button.dart';
 import 'package:book_nexsus/widgets/custom_divider_header.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class AccountScreen extends StatelessWidget {
             children: [
               const SizedBox(height: 16),
               GestureDetector(
-                onTap: () => Navigator.pop(context),
+                onTap: () => context.pop,
                 child: const CustomBackIcon(
                   text: 'Home',
                 ),
@@ -95,10 +96,7 @@ class AccountScreen extends StatelessWidget {
               _AccountOptionRow(
                 title: 'Profile details',
                 icon: 'icon_user',
-                onTapped: () => AppNavigator.navigatePush(
-                  context,
-                  const ProfileScreen(),
-                ),
+                onTapped: () => context.push(const ProfileScreen()),
                 showArrow: true,
               ),
               _AccountOptionRow(
@@ -157,8 +155,7 @@ class _SupportBox extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset(
-                'assets/images/icon_support.svg',
+              Assets.svg.support.svg(
                 height: 24,
                 width: 24,
               ),
@@ -259,9 +256,7 @@ class _AccountOptionRow extends StatelessWidget {
                         height: 24,
                         width: 24,
                         child: Center(
-                          child: SvgPicture.asset(
-                            'assets/images/icon_arrow_right.svg',
-                          ),
+                          child: Assets.svg.arrowRight.svg(),
                         ),
                       ),
                     ),

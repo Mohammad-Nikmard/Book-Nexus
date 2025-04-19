@@ -1,7 +1,8 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/extensions/context_extension.dart';
+import 'package:book_nexsus/gen/assets.gen.dart';
 import 'package:book_nexsus/ui/audio_player_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class MiniPlayer extends StatelessWidget {
   const MiniPlayer({super.key});
@@ -65,7 +66,7 @@ class MiniPlayer extends StatelessWidget {
                       height: 54,
                       width: 38,
                       child: Image.asset(
-                        'assets/images/The Good Guy Cover.png',
+                        Assets.images.duneBookCover.path,
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -84,7 +85,7 @@ class MiniPlayer extends StatelessWidget {
                           ),
                           const Spacer(),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.55,
+                            width: context.screenWidth * 0.55,
                             child: const Text(
                               'Managers who want to create positive work environments',
                               style: TextStyle(
@@ -111,9 +112,7 @@ class MiniPlayer extends StatelessWidget {
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(6.0),
-                            child: SvgPicture.asset(
-                              'assets/images/icon_play.svg',
-                            ),
+                            child: Assets.svg.play.svg(),
                           ),
                         ),
                         const SizedBox(width: 8),
@@ -126,9 +125,7 @@ class MiniPlayer extends StatelessWidget {
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(6.0),
-                            child: SvgPicture.asset(
-                              'assets/images/icon_forward.svg',
-                            ),
+                            child: Assets.svg.forward.svg(),
                           ),
                         ),
                       ],

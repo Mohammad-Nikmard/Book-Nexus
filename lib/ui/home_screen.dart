@@ -1,12 +1,12 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/extensions/context_extension.dart';
+import 'package:book_nexsus/gen/assets.gen.dart';
 import 'package:book_nexsus/ui/account_screen.dart';
-import 'package:book_nexsus/util/app_navigator.dart';
 import 'package:book_nexsus/widgets/explore_topic_list.dart';
 import 'package:book_nexsus/widgets/mini_player.dart';
 import 'package:book_nexsus/widgets/story_card.dart';
 import 'package:book_nexsus/widgets/tag_list_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -29,10 +29,10 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   List<String> tagIcons = [
-    'icon_headphone',
-    'icon_fire',
-    'icon_book_open',
-    'icon_fire',
+    'headphone',
+    'fire',
+    'book_open',
+    'fire',
   ];
 
   @override
@@ -41,9 +41,9 @@ class _HomeScreenState extends State<HomeScreen> {
     _scrollController = ScrollController();
 
     _scrollController.addListener(() async {
-      if (_scrollController.offset.round() < -40 && !onTapped) {
+      if (_scrollController.offset.round() < -80 && !onTapped) {
         await chnageStoryCardLogic();
-      } else if (_scrollController.offset.round() > 5 && onTapped) {
+      } else if (_scrollController.offset.round() > 25 && onTapped) {
         setState(() {
           needToShowContent = false;
         });
@@ -121,19 +121,14 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 5),
-            SvgPicture.asset(
-              'assets/images/icon_indicator_curved.svg',
-            ),
+            Assets.svg.indicatorCurved.svg(),
           ],
         ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16),
             child: GestureDetector(
-              onTap: () => AppNavigator.navigatePush(
-                context,
-                const AccountScreen(),
-              ),
+              onTap: () => context.push(const AccountScreen()),
               child: const CircleAvatar(
                 radius: 25,
                 backgroundColor: Colors.cyan,
@@ -161,19 +156,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         scrollDirection: Axis.horizontal,
                         slivers: [
                           SliverList(
-                            delegate:
-                                SliverChildBuilderDelegate((context, index) {
-                              return Padding(
-                                padding: EdgeInsets.only(
-                                    right: 10, left: index == 0 ? 16 : 0),
-                                child: StoryCard(
-                                  needToShowContent: needToShowContent,
-                                  onTapped: onTapped,
-                                  needToShowExpandedStory:
-                                      needToShowExpandedStory,
-                                ),
-                              );
-                            }, childCount: 10),
+                            delegate: SliverChildBuilderDelegate(
+                              (context, index) {
+                                return Padding(
+                                  padding: EdgeInsets.only(
+                                      right: 10, left: index == 0 ? 16 : 0),
+                                  child: StoryCard(
+                                    needToShowContent: needToShowContent,
+                                    onTapped: onTapped,
+                                    needToShowExpandedStory:
+                                        needToShowExpandedStory,
+                                  ),
+                                );
+                              },
+                              childCount: 3,
+                            ),
                           ),
                         ],
                       ),

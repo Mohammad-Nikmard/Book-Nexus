@@ -1,12 +1,11 @@
 import 'dart:ui';
-
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/extensions/context_extension.dart';
+import 'package:book_nexsus/gen/assets.gen.dart';
 import 'package:book_nexsus/ui/product_listing_screen.dart';
-import 'package:book_nexsus/util/app_navigator.dart';
 import 'package:book_nexsus/widgets/custom_product_tag_list.dart';
 import 'package:book_nexsus/widgets/product_explore_box.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   const ProductDetailScreen({super.key});
@@ -58,8 +57,8 @@ class _BackgroundPhoto extends StatelessWidget {
       alignment: AlignmentDirectional.bottomCenter,
       children: [
         SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.width,
+          width: context.screenWidth,
+          height: context.screenWidth,
           child: FittedBox(
             fit: BoxFit.cover,
             child: Padding(
@@ -74,7 +73,7 @@ class _BackgroundPhoto extends StatelessWidget {
           bottom: -190,
           child: Container(
             height: 300,
-            width: MediaQuery.of(context).size.width,
+            width: context.screenWidth,
             decoration: const BoxDecoration(
               color: AppColors.background,
               gradient: LinearGradient(
@@ -116,9 +115,7 @@ class _BookCover extends StatelessWidget {
         _DoubleNoticeBox(
           leftContent: Row(
             children: [
-              SvgPicture.asset(
-                'assets/images/icon_book.svg',
-              ),
+              Assets.svg.book.svg(),
               const SizedBox(width: 9),
               const Text(
                 'Read Nexus',
@@ -132,9 +129,7 @@ class _BookCover extends StatelessWidget {
           ),
           rightContent: Row(
             children: [
-              SvgPicture.asset(
-                'assets/images/icon_headphone_outlined.svg',
-              ),
+              Assets.svg.headphoneOutlined.svg(),
               const SizedBox(width: 9),
               const Text(
                 'Play Nexus',
@@ -220,8 +215,7 @@ class _ProductHeader extends StatelessWidget {
                 ),
               ),
             ),
-            SvgPicture.asset(
-              'assets/images/icon_bookmark.svg',
+            Assets.svg.bookmark.svg(
               height: 20,
               width: 20,
               colorFilter: const ColorFilter.mode(
@@ -261,9 +255,7 @@ class _ProductHeader extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset(
-                  'assets/images/icon_clock.svg',
-                ),
+                Assets.svg.clock.svg(),
                 const SizedBox(width: 9),
                 const Text(
                   '18 min',
@@ -281,9 +273,7 @@ class _ProductHeader extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset(
-                  'assets/images/icon_light_bulb.svg',
-                ),
+                Assets.svg.lightBulb.svg(),
                 const SizedBox(width: 9),
                 const Text(
                   'Key ideas',
@@ -432,11 +422,7 @@ class _ChapterBox extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.all(4.0),
-          child: SvgPicture.asset(
-            isUnlocked
-                ? 'assets/images/icon_play.svg'
-                : 'assets/images/icon_lock.svg',
-          ),
+          child: isUnlocked ? Assets.svg.play.svg() : Assets.svg.lock.svg(),
         ),
       ),
     );
@@ -493,7 +479,7 @@ class _AuthorBox extends StatelessWidget {
                     ),
                     Flexible(
                       child: SizedBox(
-                        width: MediaQuery.of(context).size.width - 150,
+                        width: context.screenWidth - 150,
                         child: const Text(
                           'Managers who want to create positive work environments',
                           style: TextStyle(
@@ -543,16 +529,11 @@ class _SimilarBooksSection extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ProductListingScreen(
-                            name: 'Similar Books',
-                          ),
-                        ),
-                      );
-                    },
+                    onTap: () => context.push(
+                      const ProductListingScreen(
+                        name: 'Similar Books',
+                      ),
+                    ),
                     child: Row(
                       children: [
                         const Text(
@@ -564,9 +545,7 @@ class _SimilarBooksSection extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(width: 3),
-                        SvgPicture.asset(
-                          'assets/images/icon_arrow_circle_right.svg',
-                        ),
+                        Assets.svg.arrowCircleRight.svg(),
                       ],
                     ),
                   ),
@@ -586,10 +565,8 @@ class _SimilarBooksSection extends StatelessWidget {
                         return Padding(
                           padding: EdgeInsets.only(left: index == 0 ? 15 : 8),
                           child: GestureDetector(
-                            onTap: () => AppNavigator.navigatePush(
-                              context,
-                              const ProductDetailScreen(),
-                            ),
+                            onTap: () =>
+                                context.push(const ProductDetailScreen()),
                             child: const ProductExploreBox(),
                           ),
                         );

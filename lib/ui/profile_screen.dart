@@ -1,9 +1,10 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/extensions/context_extension.dart';
+import 'package:book_nexsus/gen/assets.gen.dart';
 import 'package:book_nexsus/widgets/custom_back_button.dart';
 import 'package:book_nexsus/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:flutter_svg/svg.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -20,7 +21,7 @@ class ProfileScreen extends StatelessWidget {
             children: [
               const SizedBox(height: 16),
               GestureDetector(
-                onTap: () => Navigator.pop(context),
+                onTap: () => context.pop,
                 child: const CustomBackIcon(
                   text: 'Back',
                 ),
@@ -68,9 +69,7 @@ class ProfileScreen extends StatelessWidget {
                           shape: BoxShape.circle,
                         ),
                         child: Center(
-                          child: SvgPicture.asset(
-                            'assets/images/icon_upload.svg',
-                          ),
+                          child: Assets.svg.upload.svg(),
                         ),
                       ),
                     ),
@@ -154,9 +153,7 @@ class _UserProfileInputsState extends State<_UserProfileInputs> {
             height: 24,
             width: 24,
             child: Center(
-              child: SvgPicture.asset(
-                'assets/images/icon_arrow_right.svg',
-              ),
+              child: Assets.svg.arrowRight.svg(),
             ),
           ),
         ),
@@ -179,9 +176,7 @@ class _UserProfileInputsState extends State<_UserProfileInputs> {
             height: 24,
             width: 24,
             child: Center(
-              child: SvgPicture.asset(
-                'assets/images/icon_arrow_right.svg',
-              ),
+              child: Assets.svg.arrowRight.svg(),
             ),
           ),
         ),
@@ -204,9 +199,7 @@ class _UserProfileInputsState extends State<_UserProfileInputs> {
             height: 24,
             width: 24,
             child: Center(
-              child: SvgPicture.asset(
-                'assets/images/icon_arrow_right.svg',
-              ),
+              child: Assets.svg.arrowRight.svg(),
             ),
           ),
         ),

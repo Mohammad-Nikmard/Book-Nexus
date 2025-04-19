@@ -40,7 +40,7 @@ class PageTagWidget extends StatelessWidget {
                 width: 24,
                 child: Center(
                   child: SvgPicture.asset(
-                    'assets/images/$image.svg',
+                    'assets/svg/$image.svg',
                     colorFilter: ColorFilter.mode(
                       isTagTapped ? AppColors.greyDark : AppColors.white,
                       BlendMode.srcIn,

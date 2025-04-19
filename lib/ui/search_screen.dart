@@ -1,7 +1,8 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/extensions/context_extension.dart';
+import 'package:book_nexsus/gen/assets.gen.dart';
 import 'package:book_nexsus/widgets/custom_search_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -43,14 +44,12 @@ class _SearchScreenState extends State<SearchScreen> {
                   height: 52,
                   controller: searchController,
                   prefixIcon: GestureDetector(
-                    onTap: () => Navigator.pop(context),
+                    onTap: () => context.pop,
                     child: SizedBox(
                       height: 24,
                       width: 24,
                       child: Center(
-                        child: SvgPicture.asset(
-                          'assets/images/icon_arrow_left.svg',
-                        ),
+                        child: Assets.svg.arrowLeft.svg(),
                       ),
                     ),
                   ),
@@ -79,7 +78,7 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
               const SizedBox(height: 16),
               SizedBox(
-                height: MediaQuery.of(context).size.height - 150,
+                height: context.screenHeight - 150,
                 child: CustomScrollView(
                   slivers: [
                     SliverAnimatedList(
@@ -169,9 +168,7 @@ class _RecentSearchProduct extends StatelessWidget {
               const SizedBox(height: 3),
               Row(
                 children: [
-                  SvgPicture.asset(
-                    'assets/images/icon_headphone.svg',
-                  ),
+                  Assets.svg.headphone.svg(),
                   const SizedBox(height: 2),
                   const Text(
                     '5m',
@@ -182,9 +179,7 @@ class _RecentSearchProduct extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 16),
-                  SvgPicture.asset(
-                    'assets/images/icon_glasses.svg',
-                  ),
+                  Assets.svg.glasses.svg(),
                   const SizedBox(height: 2),
                   const Text(
                     '8m',
@@ -205,9 +200,7 @@ class _RecentSearchProduct extends StatelessWidget {
               onTap: () {
                 onDeleteTapped!();
               },
-              child: SvgPicture.asset(
-                'assets/images/icon_delete.svg',
-              ),
+              child: Assets.svg.delete.svg(),
             ),
           ),
         ],

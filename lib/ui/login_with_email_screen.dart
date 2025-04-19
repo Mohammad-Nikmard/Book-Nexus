@@ -1,8 +1,8 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/extensions/context_extension.dart';
 import 'package:book_nexsus/ui/forget_password_screen.dart';
 import 'package:book_nexsus/ui/login_with_password_screen.dart';
 import 'package:book_nexsus/ui/signup_screen.dart';
-import 'package:book_nexsus/util/app_navigator.dart';
 import 'package:book_nexsus/widgets/custom_blur_box.dart';
 import 'package:book_nexsus/widgets/custom_elevated_button.dart';
 import 'package:book_nexsus/widgets/custom_text_field.dart';
@@ -115,18 +115,13 @@ class _BlurBoxContent extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         CustomElevatedButton(
-          onPressed: () => AppNavigator.navigateReplacement(
-            context,
-            const LoginWithPasswordScreen(),
-          ),
+          onPressed: () =>
+              context.pushReplacement(const LoginWithPasswordScreen()),
           text: 'Continue',
         ),
         const SizedBox(height: 16),
         GestureDetector(
-          onTap: () => AppNavigator.navigateReplacement(
-            context,
-            const ForgetPasswordScreen(),
-          ),
+          onTap: () => context.pushReplacement(const ForgetPasswordScreen()),
           child: const Text(
             'Forgot Password?',
             style: TextStyle(
@@ -193,7 +188,7 @@ class _BlurBoxContent extends StatelessWidget {
               ),
               TextSpan(
                 recognizer: TapGestureRecognizer()
-                  ..onTap = () => SignupScreen(),
+                  ..onTap = () => const SignupScreen(),
                 text: 'Sign up',
                 style: const TextStyle(
                   fontFamily: 'NB',

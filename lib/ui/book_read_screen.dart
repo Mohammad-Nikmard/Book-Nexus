@@ -1,6 +1,7 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/extensions/context_extension.dart';
+import 'package:book_nexsus/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class BookReadScreen extends StatelessWidget {
   const BookReadScreen({super.key});
@@ -20,11 +21,14 @@ class BookReadScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: SvgPicture.asset(
-                        'assets/images/icon_arrow_down.svg',
+                      onTap: () => context.pop,
+                      child: Assets.svg.arrowDown.svg(
                         height: 24,
                         width: 24,
+                        colorFilter: const ColorFilter.mode(
+                          Colors.white,
+                          BlendMode.srcIn,
+                        ),
                       ),
                     ),
                     const Spacer(),
@@ -37,29 +41,23 @@ class BookReadScreen extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(4.0),
-                        child: SvgPicture.asset(
-                          'assets/images/icon_play.svg',
-                        ),
+                        child: Assets.svg.play.svg(),
                       ),
                     ),
                     const SizedBox(width: 12),
-                    SvgPicture.asset(
-                      'assets/images/icon_headphone_outlined.svg',
-                    ),
+                    Assets.svg.headphoneOutlined.svg(),
                     const SizedBox(width: 12),
-                    SvgPicture.asset(
-                      'assets/images/icon_more_vertical.svg',
-                    ),
+                    Assets.svg.moreVertical.svg(),
                   ],
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height - 50,
+                height: context.screenHeight - 130,
                 width: double.infinity,
                 child: const CustomScrollView(
                   slivers: [
                     SliverPadding(
-                      padding: const EdgeInsets.only(bottom: 17, top: 24),
+                      padding: EdgeInsets.only(bottom: 17, top: 24),
                       sliver: SliverToBoxAdapter(
                         child: Text(
                           'What is in it for me? Learn how to become an effecive unofficial project manager',

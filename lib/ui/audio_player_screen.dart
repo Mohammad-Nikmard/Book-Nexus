@@ -1,9 +1,10 @@
 import 'dart:ui';
 import 'package:animations/animations.dart';
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/extensions/context_extension.dart';
+import 'package:book_nexsus/gen/assets.gen.dart';
 import 'package:book_nexsus/ui/book_read_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class AudioPlayerScreen extends StatelessWidget {
   const AudioPlayerScreen({super.key});
@@ -17,16 +18,16 @@ class AudioPlayerScreen extends StatelessWidget {
           SliverToBoxAdapter(
             child: Stack(
               children: [
-                const Padding(
-                  padding: EdgeInsets.only(top: 100),
+                Padding(
+                  padding: EdgeInsets.only(top: 30),
                   child: SizedBox(
-                    height: 357,
+                    height: 600,
                     width: double.infinity,
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage(
-                            'assets/images/The Good Guy Cover.png',
+                            Assets.images.duneBookCover.path,
                           ),
                           fit: BoxFit.cover,
                         ),
@@ -37,45 +38,49 @@ class AudioPlayerScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                     child: Column(
                       children: [
                         Padding(
                           padding: EdgeInsets.only(
                             top: 16,
-                            bottom: MediaQuery.of(context).size.height < 700
-                                ? 60
-                                : 100,
+                            bottom: context.screenHeight < 700 ? 60 : 100,
                           ),
                           child: SafeArea(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 GestureDetector(
-                                  onTap: () => Navigator.pop(context),
-                                  child: SvgPicture.asset(
-                                    'assets/images/icon_arrow_down.svg',
+                                  onTap: () => context.pop,
+                                  child: Assets.svg.arrowDown.svg(
+                                    height: 32,
+                                    width: 32,
+                                    colorFilter: const ColorFilter.mode(
+                                      Colors.white,
+                                      BlendMode.srcIn,
+                                    ),
                                   ),
                                 ),
-                                SvgPicture.asset(
-                                  'assets/images/icon_more_vertical.svg',
-                                ),
+                                Assets.svg.moreVertical.svg(),
                               ],
                             ),
                           ),
                         ),
                         Padding(
                           padding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).size.height < 700
-                                ? 60
-                                : 100,
+                            bottom: context.screenHeight < 700 ? 60 : 100,
                           ),
-                          child: SizedBox(
-                            height: 249,
-                            width: 173,
-                            child: Center(
-                              child: Image.asset(
-                                'assets/images/The Good Guy Cover.png',
+                          child: ClipRRect(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(16),
+                            ),
+                            child: SizedBox(
+                              height: 249,
+                              width: 173,
+                              child: Center(
+                                child: Image.asset(
+                                  Assets.images.duneBookCover.path,
+                                ),
                               ),
                             ),
                           ),
@@ -84,7 +89,7 @@ class AudioPlayerScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'The Good Guy',
+                              'Dune',
                               style: TextStyle(
                                 fontSize: 20,
                                 fontFamily: 'NB',
@@ -93,7 +98,7 @@ class AudioPlayerScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 8),
                             const Text(
-                              'By Kory Kogon, Suzette Blakemore, and James wood',
+                              'By Frank Herbert',
                               style: TextStyle(
                                 fontSize: 12,
                                 fontFamily: 'NR',
@@ -141,12 +146,8 @@ class AudioPlayerScreen extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                SvgPicture.asset(
-                                  'assets/images/icon_skip_forward.svg',
-                                ),
-                                SvgPicture.asset(
-                                  'assets/images/icon_skip_ten_forward.svg',
-                                ),
+                                Assets.svg.skipForward.svg(),
+                                Assets.svg.skipTenBackward.svg(),
                                 Container(
                                   height: 64,
                                   width: 64,
@@ -155,28 +156,21 @@ class AudioPlayerScreen extends StatelessWidget {
                                     color: AppColors.greenAccent,
                                   ),
                                   child: Center(
-                                    child: SvgPicture.asset(
-                                      'assets/images/icon_play.svg',
+                                    child: Assets.svg.play.svg(
                                       height: 36,
                                       width: 36,
                                     ),
                                   ),
                                 ),
-                                SvgPicture.asset(
-                                  'assets/images/icon_skip_ten_backward.svg',
-                                ),
-                                SvgPicture.asset(
-                                  'assets/images/icon_skip_backward.svg',
-                                ),
+                                Assets.svg.skipTenBackward.svg(),
+                                Assets.svg.skipBackward.svg(),
                               ],
                             ),
                             const SizedBox(height: 24),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                SvgPicture.asset(
-                                  'assets/images/icon_moon.svg',
-                                ),
+                                Assets.svg.moon.svg(),
                                 const Text(
                                   '1.0x',
                                   style: TextStyle(
@@ -194,9 +188,9 @@ class AudioPlayerScreen extends StatelessWidget {
                               openColor: Colors.transparent,
                               closedColor: Colors.transparent,
                               middleColor: Colors.transparent,
-                              transitionDuration: const Duration(seconds: 1),
-                              transitionType:
-                                  ContainerTransitionType.fadeThrough,
+                              transitionDuration:
+                                  const Duration(milliseconds: 300),
+                              transitionType: ContainerTransitionType.fade,
                               closedElevation: 0.0,
                               openBuilder: (context, _) =>
                                   const BookReadScreen(),
@@ -225,7 +219,7 @@ class _BookReadCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 392,
+      height: 330,
       width: double.infinity,
       padding: const EdgeInsets.all(16),
       decoration: const BoxDecoration(
@@ -247,9 +241,7 @@ class _BookReadCard extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              SvgPicture.asset(
-                'assets/images/icon_open.svg',
-              ),
+              Assets.svg.open.svg(),
             ],
           ),
           const SizedBox(height: 16),
@@ -278,7 +270,7 @@ class _BookReadCard extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SvgPicture.asset('assets/images/icon_share.svg'),
+                        Assets.svg.share.svg(),
                         const SizedBox(width: 5),
                         const Text(
                           'Share',

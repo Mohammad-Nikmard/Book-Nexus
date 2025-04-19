@@ -1,10 +1,10 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/extensions/context_extension.dart';
+import 'package:book_nexsus/gen/assets.gen.dart';
 import 'package:book_nexsus/ui/product_detail_screen.dart';
 import 'package:book_nexsus/ui/product_listing_screen.dart';
-import 'package:book_nexsus/util/app_navigator.dart';
 import 'package:book_nexsus/widgets/product_explore_box.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class ExploreTopicLists extends StatelessWidget {
   const ExploreTopicLists({
@@ -39,16 +39,11 @@ class ExploreTopicLists extends StatelessWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ProductListingScreen(
-                                  name: topicNames[index],
-                                ),
-                              ),
-                            );
-                          },
+                          onTap: () => context.push(
+                            ProductListingScreen(
+                              name: topicNames[index],
+                            ),
+                          ),
                           child: Row(
                             children: [
                               const Text(
@@ -60,9 +55,7 @@ class ExploreTopicLists extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(width: 3),
-                              SvgPicture.asset(
-                                'assets/images/icon_arrow_circle_right.svg',
-                              ),
+                              Assets.svg.arrowCircleRight.svg(),
                             ],
                           ),
                         ),
@@ -83,10 +76,8 @@ class ExploreTopicLists extends StatelessWidget {
                                 padding:
                                     EdgeInsets.only(left: index == 0 ? 15 : 8),
                                 child: GestureDetector(
-                                  onTap: () => AppNavigator.navigatePush(
-                                    context,
-                                    const ProductDetailScreen(),
-                                  ),
+                                  onTap: () =>
+                                      context.push(const ProductDetailScreen()),
                                   child: const ProductExploreBox(),
                                 ),
                               );

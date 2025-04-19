@@ -1,7 +1,7 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:flutter_svg/svg.dart';
 
 class CustomBackIcon extends StatelessWidget {
   const CustomBackIcon({super.key, required this.text});
@@ -22,8 +22,7 @@ class CustomBackIcon extends StatelessWidget {
             );
           },
           children: [
-            SvgPicture.asset(
-              'assets/images/icon_arrow_left.svg',
+            Assets.svg.arrowLeft.svg(
               height: 24,
               width: 24,
             ),

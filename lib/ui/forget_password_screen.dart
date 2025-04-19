@@ -1,7 +1,7 @@
 import 'package:book_nexsus/constants/constants.dart';
+import 'package:book_nexsus/extensions/context_extension.dart';
 import 'package:book_nexsus/ui/login_with_email_screen.dart';
 import 'package:book_nexsus/ui/set_password_screen.dart';
-import 'package:book_nexsus/util/app_navigator.dart';
 import 'package:book_nexsus/widgets/custom_back_button.dart';
 import 'package:book_nexsus/widgets/custom_blur_box.dart';
 import 'package:book_nexsus/widgets/custom_elevated_button.dart';
@@ -33,10 +33,8 @@ class ForgetPasswordScreen extends StatelessWidget {
                 top: 16,
                 left: 16,
                 child: GestureDetector(
-                  onTap: () => AppNavigator.navigateReplacement(
-                    context,
-                    const LoginWithEmailScreen(),
-                  ),
+                  onTap: () =>
+                      context.pushReplacement(const LoginWithEmailScreen()),
                   child: const CustomBackIcon(
                     text: 'Back to Log in',
                   ),
@@ -134,10 +132,7 @@ class _BlurBoxContentState extends State<_BlurBoxContent> {
         ),
         const SizedBox(height: 16),
         CustomElevatedButton(
-          onPressed: () => AppNavigator.navigateReplacement(
-            context,
-            const SetPasswordScreen(),
-          ),
+          onPressed: () => context.pushReplacement(const SetPasswordScreen()),
           text: 'Submit',
         ),
         const SizedBox(height: 24),
@@ -155,10 +150,8 @@ class _BlurBoxContentState extends State<_BlurBoxContent> {
               TextSpan(
                 text: 'Sign up',
                 recognizer: TapGestureRecognizer()
-                  ..onTap = () => AppNavigator.navigateReplacement(
-                        context,
-                        const LoginWithEmailScreen(),
-                      ),
+                  ..onTap = () =>
+                      context.pushReplacement(const LoginWithEmailScreen()),
                 style: const TextStyle(
                   fontFamily: 'NB',
                   fontSize: 16,

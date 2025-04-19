@@ -1,0 +1,2 @@
+/home/mohammad/Desktop/Book-Nexus/android/app/.cxx/Debug/7333213v/x86/CMakeFiles/edit_cache.dir
+/home/mohammad/Desktop/Book-Nexus/android/app/.cxx/Debug/7333213v/x86/CMakeFiles/rebuild_cache.dir
